@@ -38,7 +38,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 if env("RENDER"):
     ALLOWED_HOSTS.append(env("RENDER_EXTERNAL_HOSTNAME"))
@@ -56,9 +56,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     "whitenoise.runserver_nostatic",
     'django.contrib.staticfiles',
-    'WasteNotWizards',
     'rest_framework',
     'rest_framework.authtoken',
+    'WasteNotWizards',
 ]
 
 MIDDLEWARE = [
