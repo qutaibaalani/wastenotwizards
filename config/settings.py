@@ -37,16 +37,6 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-CACHES = {
-    # Read os.environ['CACHE_URL'] and raises
-    # ImproperlyConfigured exception if not found.
-    #
-    # The cache() method is an alias for cache_url().
-    'default': env.cache(),
-
-    # read os.environ['REDIS_URL']
-    'redis': env.cache_url('REDIS_URL')
-}
 
 ALLOWED_HOSTS = []
 
@@ -113,11 +103,6 @@ DATABASES = {
     # The db() method is an alias for db_url().
     'default': env.db(),
 
-    # read os.environ['SQLITE_URL']
-    'extra': env.db_url(
-        'SQLITE_URL',
-        default='sqlite:////tmp/my-tmp-sqlite.db'
-    )
 }
 
 
