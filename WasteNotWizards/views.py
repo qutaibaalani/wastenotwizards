@@ -4,18 +4,17 @@ from .models import User, Provider, Receiver, Post, Reservation
 from .serializers import (
     ProviderListSerializer,
     ReceiverListSerializer,
-    ProviderProfileSerializer,
+    ProviderProfileSerializer, 
     ReceiverProfileSerializer,
     PostListSerializer,
     ReservationListSerializer,
 )
 
+def home(request):
+    return render(request, "index.html")
 # Create your views here.
 
-# Receiver List, Provider Profile, Receiver Profile, Post list, Receiver Reservation list
 
-
-# For listing and creating instances of the `Provider` model.
 class ProviderListCreateView(generics.ListCreateAPIView):
     queryset = Provider.objects.all()
     serializer_class = ProviderListSerializer
