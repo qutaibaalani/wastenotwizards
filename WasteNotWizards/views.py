@@ -10,6 +10,8 @@ from .serializers import (
     ReservationListSerializer,
 )
 
+def home(request):
+    return render(request, "index.html")
 # Create your views here.
 
 # Receiver List, Provider Profile, Receiver Profile, Post list, Receiver Reservation list
