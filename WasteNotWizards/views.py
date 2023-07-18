@@ -4,7 +4,7 @@ from .models import User, Provider, Receiver, Post, Reservation
 from .serializers import (
     ProviderListSerializer,
     ReceiverListSerializer,
-    ProviderProfileSerializer,
+    ProviderProfileSerializer, 
     ReceiverProfileSerializer,
     PostListSerializer,
     ReservationListSerializer,

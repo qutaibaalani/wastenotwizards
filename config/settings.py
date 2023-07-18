@@ -24,7 +24,7 @@ env = environ.Env(
 
 # Set the project base directory
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ANGULAR_APP_DIR = os.path.join(BASE_DIR,"Angularapp/dist/angularapp")
+ANGULAR_APP_DIR = os.path.join(BASE_DIR,"angularapp/dist/angularapp")
 
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
@@ -79,7 +79,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"Angularapp/dist/angularapp")],
+        'DIRS': [os.path.join(BASE_DIR,"angularapp/dist/angularapp")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
