@@ -8,9 +8,8 @@ class User(AbstractUser):
         ("Provider", "Provider"),
         ("Receiver", "Receiver"),
     ]
-    user_type = models.CharField(max_length=12, choices=USER_CHOICES, blank=True, null=True)
 
-    def __Str__(self):
+    def __str__(self):
         return self.username
 
 class Provider(models.Model):

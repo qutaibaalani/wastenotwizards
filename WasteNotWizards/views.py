@@ -20,7 +20,7 @@ class ProviderProfileView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Provider.objects.all()
     serializer_class = ProviderProfileSerializer
     # The `lookup_field` is set to "user__username" to retrieve the profile based on the username of the associated user.
-    lookup_field = "user"
+    lookup_field = "username"
 
 
 # For retrieving and updating the profile of a `Receiver` instance.
