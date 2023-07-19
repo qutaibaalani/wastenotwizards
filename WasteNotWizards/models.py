@@ -3,19 +3,23 @@ from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
+
 class User(AbstractUser):
     USER_CHOICES = [
         ("Provider", "Provider"),
         ("Receiver", "Receiver"),
     ]
-    user_type = models.CharField(max_length=12, choices=USER_CHOICES, blank=True, null=True)
+    user_type = models.CharField(
+        max_length=12, choices=USER_CHOICES, blank=True, null=True
+    )
     email = models.CharField(max_length=30, blank=True, null=True)
-    phone_number=models.CharField(max_length=12, blank=True, null=True)
-    address=models.CharField(max_length=50, blank=True, null=True)
-    
+    phone_number = models.CharField(max_length=12, blank=True, null=True)
+    address = models.CharField(max_length=50, blank=True, null=True)
+
 
     def __str__(self):
         return self.username
+
 
 class Provider(models.Model):
     PROVIDER_CHOICES = [
@@ -29,7 +33,7 @@ class Provider(models.Model):
         return self.user
 
 
-
+# Define the Post model
 class Post(models.Model):
     provider = models.OneToOneField(Provider, on_delete=models.CASCADE)
     food_list = models.TextField()
@@ -38,6 +42,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.provider
+
 
 class Reservation(models.Model):
     receiver = models.OneToOneField(User, on_delete=models.CASCADE)
