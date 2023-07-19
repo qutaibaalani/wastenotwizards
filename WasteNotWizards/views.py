@@ -1,13 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import generics
-from .models import User, Provider, Receiver, Post, Reservation
+from .models import User, Provider,Post, Reservation
 from .serializers import (
-    ProviderListSerializer,
-    ReceiverListSerializer,
-    ProviderProfileSerializer, 
-    ReceiverProfileSerializer,
+    ProviderListSerializer, 
     PostListSerializer,
     ReservationListSerializer,
+    ProfileSerializer
 )
 
 def home(request):
@@ -15,16 +13,11 @@ def home(request):
 # Create your views here.
 
 #-----------------------------------------LOG IN VIEWS-----------------------------------
-def ProviderProfile(request, pk):
-    userInfo = get_object_or_404(User, pk=pk)
-    providerInfo = get_object_or_404(Provider, pk=Provider.user_id)
-    context = {
-        'user': request.user,
-        'providerInfo': providerInfo,
-        'userInfo': userInfo
-
-    }
-    return render(request, 'Angularapp/profile.html', context)
+class ProfileViewSet(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = ProfileSerializer
+    lookup_field = "username"
+    
 
 
 
@@ -38,24 +31,11 @@ class ProviderListCreateView(generics.ListCreateAPIView):
     serializer_class = ProviderListSerializer
 
 
-# For listing instances of the `Receiver` model.
-class ReceiverListView(generics.ListAPIView):
-    queryset = Receiver.objects.all()
-    serializer_class = ReceiverListSerializer
-
 
 # For retrieving and updating the profile of a `Provider` instance.
 class ProviderProfileView(generics.RetrieveUpdateAPIView):
-    queryset = Provider.objects.all()
-    serializer_class = ProviderProfileSerializer
-    # The `lookup_field` is set to "user__username" to retrieve the profile based on the username of the associated user.
-    lookup_field = "user__username"
-
-
-# For retrieving and updating the profile of a `Receiver` instance.
-class ReceiverProfileView(generics.RetrieveUpdateAPIView):
-    queryset = Receiver.objects.all()
-    serializer_class = ReceiverProfileSerializer
+    queryset = User.objects.all()
+    serializer_class = ProfileSerializer
     # The `lookup_field` is set to "user__username" to retrieve the profile based on the username of the associated user.
     lookup_field = "user__username"
 
