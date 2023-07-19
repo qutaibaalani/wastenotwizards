@@ -8,8 +8,9 @@ class User(AbstractUser):
         ("Provider", "Provider"),
         ("Receiver", "Receiver"),
     ]
+    user_type = models.CharField(max_length=12, choices=USER_CHOICES, blank=True, null=True)
 
-    def __str__(self):
+    def __Str__(self):
         return self.username
 
 class Provider(models.Model):
@@ -18,25 +19,11 @@ class Provider(models.Model):
         ("Resident", "Resident"),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    address = models.TextField(blank=True, null=True)
-    Provider_type = models.CharField(max_length=20, choices=PROVIDER_CHOICES)
-    email = models.CharField(max_length=30)
-    phone_number = models.CharField(max_length=15)
+
+    provider_type = models.CharField(max_length=20, choices=PROVIDER_CHOICES)
 
     def __str__(self):
-        return str(self.user)
-
-    
-
-class Receiver(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    address = models.TextField(blank=True, null=True)
-    email = models.CharField(max_length=30, blank=True, null=True)
-    phone_number = models.CharField(max_length=15)
-
-    def __str__(self):
-        return str(self.user)
-
+        return self.user
 
 
 
@@ -46,7 +33,12 @@ class Post(models.Model):
     monetary_value = models.IntegerField(blank=True, null=True)
     location = models.TextField()
 
+    def __str__(self):
+        return self.provider
 
 class Reservation(models.Model):
-    receiver = models.OneToOneField(Receiver, on_delete=models.CASCADE)
+    receiver = models.OneToOneField(User, on_delete=models.CASCADE)
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.receiver

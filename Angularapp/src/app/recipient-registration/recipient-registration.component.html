@@ -1,11 +1,56 @@
-<form [formGroup]="recipientForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input id="username" type="text" formControlName="username">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="recipient-registration.component.css">
+  <title>Registration Form</title>
+  <style>
+    .logo {
+      width: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="flex justify-center items-center h-screen">
+    <div class="registration-form">
+      <div class="form-header">
+        <h2 class="form-title">Registration Form</h2>
+      </div>
+      <div class="logo-container">
+        <img src="https://i.postimg.cc/RF13Crr7/Logo-WNW.png" alt="Logo" class="logo">
+      </div>
+      <form [formGroup]="recipientForm" (ngSubmit)="onSubmit()" class="form-container">
+        <div class="form-group">
+          <label for="name" class="form-label">Name</label>
+          <input id="name" type="text" formControlName="name" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="address" class="form-label">Address</label>
+          <input id="address" type="text" formControlName="address" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="zipcode" class="form-label">Zip Code</label>
+          <input id="zipcode" type="text" formControlName="zipcode" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input id="email" type="email" formControlName="email" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="phone" class="form-label">Phone</label>
+          <input id="phone" type="tel" formControlName="phone" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <input id="password" type="password" formControlName="password" class="form-input">
+        </div>
+        <button type="submit" class="form-button">Register</button>
+      </form>
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input id="password" type="password" formControlName="password">
-    </div>
-    <button type="submit">Register</button>
-</form>
+  </div>
+</body>
+
+</html>
