@@ -10,6 +10,9 @@ class User(AbstractUser):
     ]
     user_type = models.CharField(max_length=12, choices=USER_CHOICES, blank=True, null=True)
 
+    def __Str__(self):
+        return self.username
+
 class Provider(models.Model):
     PROVIDER_CHOICES = [
         ("Business", "Business"),
@@ -21,6 +24,9 @@ class Provider(models.Model):
     email = models.CharField(max_length=30)
     phone_number = models.CharField(max_length=15)
 
+    def __str__(self):
+        return str(self.user)
+
     
 
 class Receiver(models.Model):
@@ -28,6 +34,10 @@ class Receiver(models.Model):
     address = models.TextField(blank=True, null=True)
     email = models.CharField(max_length=30, blank=True, null=True)
     phone_number = models.CharField(max_length=15)
+
+    def __str__(self):
+        return str(self.user)
+
 
 
 

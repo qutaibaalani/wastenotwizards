@@ -15,16 +15,20 @@ def home(request):
 # Create your views here.
 
 #-----------------------------------------LOG IN VIEWS-----------------------------------
-def ProviderProfile(request, pk):
-    userInfo = get_object_or_404(User, pk=pk)
-    providerInfo = get_object_or_404(Provider, pk=Provider.user_id)
-    context = {
-        'user': request.user,
-        'providerInfo': providerInfo,
-        'userInfo': userInfo
+# For retrieving and updating the profile of a `Provider` instance.
+class ProviderProfileView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Provider.objects.all()
+    serializer_class = ProviderProfileSerializer
+    # The `lookup_field` is set to "user__username" to retrieve the profile based on the username of the associated user.
+    lookup_field = "user"
 
-    }
-    return render(request, 'Angularapp/profile.html', context)
+
+# For retrieving and updating the profile of a `Receiver` instance.
+class ReceiverProfileView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Receiver.objects.all()
+    serializer_class = ReceiverProfileSerializer
+    # The `lookup_field` is set to "user__username" to retrieve the profile based on the username of the associated user.
+    lookup_field = "user__username"
 
 
 
@@ -43,21 +47,6 @@ class ReceiverListView(generics.ListAPIView):
     queryset = Receiver.objects.all()
     serializer_class = ReceiverListSerializer
 
-
-# For retrieving and updating the profile of a `Provider` instance.
-class ProviderProfileView(generics.RetrieveUpdateAPIView):
-    queryset = Provider.objects.all()
-    serializer_class = ProviderProfileSerializer
-    # The `lookup_field` is set to "user__username" to retrieve the profile based on the username of the associated user.
-    lookup_field = "user__username"
-
-
-# For retrieving and updating the profile of a `Receiver` instance.
-class ReceiverProfileView(generics.RetrieveUpdateAPIView):
-    queryset = Receiver.objects.all()
-    serializer_class = ReceiverProfileSerializer
-    # The `lookup_field` is set to "user__username" to retrieve the profile based on the username of the associated user.
-    lookup_field = "user__username"
 
 
 # For listing instances of the `Post` model.
