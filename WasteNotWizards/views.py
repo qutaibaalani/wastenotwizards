@@ -1,13 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import generics
-from .models import User, Provider, Receiver, Post, Reservation
+from .models import User, Provider,Post, Reservation
 from .serializers import (
-    ProviderListSerializer,
-    ReceiverListSerializer,
-    ProviderProfileSerializer, 
-    ReceiverProfileSerializer,
+    ProviderListSerializer, 
     PostListSerializer,
     ReservationListSerializer,
+    ProfileSerializer
 )
 
 def home(request):
@@ -15,21 +13,10 @@ def home(request):
 # Create your views here.
 
 #-----------------------------------------LOG IN VIEWS-----------------------------------
-# For retrieving and updating the profile of a `Provider` instance.
-class ProviderProfileView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Provider.objects.all()
-    serializer_class = ProviderProfileSerializer
-    # The `lookup_field` is set to "user__username" to retrieve the profile based on the username of the associated user.
-    lookup_field = "user"
-
-
-# For retrieving and updating the profile of a `Receiver` instance.
-class ReceiverProfileView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Receiver.objects.all()
-    serializer_class = ReceiverProfileSerializer
-    # The `lookup_field` is set to "user__username" to retrieve the profile based on the username of the associated user.
-    lookup_field = "user__username"
-
+class ProfileViewSet(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = ProfileSerializer
+    lookup_field = "username"
 
 
 #-----------------------------------------PROVIDER VIEWS-----------------------------------
@@ -40,14 +27,6 @@ class ReceiverProfileView(generics.RetrieveUpdateDestroyAPIView):
 class ProviderListCreateView(generics.ListCreateAPIView):
     queryset = Provider.objects.all()
     serializer_class = ProviderListSerializer
-
-
-# For listing instances of the `Receiver` model.
-class ReceiverListView(generics.ListAPIView):
-    queryset = Receiver.objects.all()
-    serializer_class = ReceiverListSerializer
-
-
 
 # For listing instances of the `Post` model.
 class PostListView(generics.ListAPIView):
