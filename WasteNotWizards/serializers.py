@@ -1,9 +1,12 @@
-from .models import Receiver, Provider, Post, Reservation
+from .models import Receiver, Provider, Post, Reservation, User
 from rest_framework import serializers
 
 
 # Serializer for Provider model to include all fields
 class ProviderListSerializer(serializers.ModelSerializer):
+    username = serializers.SlugRelatedField(
+        slug_field='username', queryset=User.objects.all()
+    )
     class Meta:
         model = Provider
         fields = "__all__"
@@ -11,6 +14,9 @@ class ProviderListSerializer(serializers.ModelSerializer):
 
 # Serializer for Provider model to include all fields
 class ProviderProfileSerializer(serializers.ModelSerializer):
+    username = serializers.SlugRelatedField(
+        slug_field='username', queryset=User.objects.all()
+    )
     class Meta:
         model = Provider
         fields = "__all__"
