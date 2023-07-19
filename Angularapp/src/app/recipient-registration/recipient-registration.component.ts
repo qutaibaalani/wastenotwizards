@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-recipient-registration',
@@ -7,23 +8,27 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./recipient-registration.component.css']
 })
 export class RecipientRegistrationComponent implements OnInit {
-  recipientForm = this.fb.group({
-    name: ['', Validators.required],
-    address: [''],
-    zipcode: [''],
-    email: ['', [Validators.required, Validators.email]],
-    phone: ['', Validators.required],
-    password: ['', Validators.required],
-  });
+  recipientForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.recipientForm = this.fb.group({
+      name: ['', Validators.required],
+      address: [''],
+      zipcode: [''],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
 
   onSubmit() {
     if (this.recipientForm.valid) {
-      console.log(this.recipientForm.value);
-      // form to BE here
+      const formData = this.recipientForm.value;
+      console.log(formData); // Log the form data
+
+      
     }
   }
 }
