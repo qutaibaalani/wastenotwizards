@@ -20,6 +20,7 @@ from WasteNotWizards.views import home
 
 urlpatterns = [
     path('', include('WasteNotWizards.urls')),
-    path("", home, name="home"),
     path('admin/', admin.site.urls),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken'))
 ]

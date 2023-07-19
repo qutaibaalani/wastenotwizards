@@ -17,8 +17,6 @@ class ProfileViewSet(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = ProfileSerializer
     lookup_field = "username"
-    
-
 
 
 #-----------------------------------------PROVIDER VIEWS-----------------------------------
@@ -29,16 +27,6 @@ class ProfileViewSet(generics.RetrieveUpdateDestroyAPIView):
 class ProviderListCreateView(generics.ListCreateAPIView):
     queryset = Provider.objects.all()
     serializer_class = ProviderListSerializer
-
-
-
-# For retrieving and updating the profile of a `Provider` instance.
-class ProviderProfileView(generics.RetrieveUpdateAPIView):
-    queryset = User.objects.all()
-    serializer_class = ProfileSerializer
-    # The `lookup_field` is set to "user__username" to retrieve the profile based on the username of the associated user.
-    lookup_field = "user__username"
-
 
 # For listing instances of the `Post` model.
 class PostListView(generics.ListAPIView):

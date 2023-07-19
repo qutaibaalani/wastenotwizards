@@ -14,8 +14,9 @@ class ProviderListSerializer(serializers.ModelSerializer):
     )
     class Meta:
         model = Provider
-        fields = "__all__"
-
+        fields = ['user', 'address', 'Provider_type', 'email',
+                   'phone_number', 'username'
+        ]
 
 # Serializer for Post model to include all fields
 class PostListSerializer(serializers.ModelSerializer):

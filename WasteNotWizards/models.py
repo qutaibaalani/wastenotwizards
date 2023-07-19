@@ -20,10 +20,12 @@ class Provider(models.Model):
         ("Resident", "Resident"),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
     provider_type = models.CharField(max_length=20, choices=PROVIDER_CHOICES)
 
     def __str__(self):
         return self.user
+
 
 
 class Post(models.Model):
