@@ -1,34 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Recipient } from '../models/recipient.model';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-    selector: 'app-recipient-registration',
-    templateUrl: './recipient-registration.component.html',
-    styleUrls: ['./recipient-registration.component.css']
+  selector: 'app-recipient-registration',
+  templateUrl: './recipient-registration.component.html',
+  styleUrls: ['./recipient-registration.component.css']
 })
 export class RecipientRegistrationComponent implements OnInit {
+  recipientForm = this.fb.group({
+    name: ['', Validators.required],
+    address: [''],
+    zipcode: [''],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', Validators.required],
+    password: ['', Validators.required],
+  });
 
-    recipientForm: FormGroup = this.formBuilder.group({}); // initialize empty form
+  constructor(private fb: FormBuilder) { }
 
-    constructor(private formBuilder: FormBuilder) { }
+  ngOnInit() { }
 
-    ngOnInit(): void {
-        this.recipientForm = this.formBuilder.group({
-            'username': ['', Validators.required],
-            'password': ['', [Validators.required, Validators.minLength(6)]],
-        });
+  onSubmit() {
+    if (this.recipientForm.valid) {
+      console.log(this.recipientForm.value);
+      // form to BE here
     }
-
-    onSubmit(): void {
-        if (this.recipientForm.valid) {
-            const newRecipient = new Recipient(
-                this.recipientForm.get('username')?.value,  /*chaining*/
-                this.recipientForm.get('password')?.value   
-            );
-            console.log(newRecipient);
-            
-        }
-    }
-
+  }
 }
