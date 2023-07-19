@@ -9,8 +9,11 @@ class User(AbstractUser):
         ("Receiver", "Receiver"),
     ]
     user_type = models.CharField(max_length=12, choices=USER_CHOICES, blank=True, null=True)
+    email = models.CharField(max_length=30, blank=True, null=True)
+    phone_number=models.CharField(max_length=12, blank=True, null=True)
+    address=models.CharField(max_length=50, blank=True, null=True)
 
-    def __Str__(self):
+    def __str__(self):
         return self.username
 
 class Provider(models.Model):
@@ -19,7 +22,6 @@ class Provider(models.Model):
         ("Resident", "Resident"),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
     provider_type = models.CharField(max_length=20, choices=PROVIDER_CHOICES)
 
     def __str__(self):
