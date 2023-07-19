@@ -3,19 +3,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RecipientRegistrationComponent } from './recipient-registration.component';
 
 describe('RecipientRegistrationComponent', () => {
-  let component: RecipientRegistrationComponent;
-  let fixture: ComponentFixture<RecipientRegistrationComponent>;
+    let component: RecipientRegistrationComponent;
+    let fixture: ComponentFixture<RecipientRegistrationComponent>;
 
-  beforeEach(() => {
+    beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RecipientRegistrationComponent]
+    declarations: [RecipientRegistrationComponent]
     });
     fixture = TestBed.createComponent(RecipientRegistrationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+    });
 
-  it('should create', () => {
+    it('should create', () => {
     expect(component).toBeTruthy();
-  });
+    });
 });

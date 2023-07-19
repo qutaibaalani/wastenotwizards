@@ -1,1 +1,11 @@
-<p>recipient-registration works!</p>
+<form [formGroup]="recipientForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" formControlName="username">
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password">
+    </div>
+    <button type="submit">Register</button>
+</form>
