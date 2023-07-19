@@ -14,6 +14,24 @@ def home(request):
     return render(request, "index.html")
 # Create your views here.
 
+#-----------------------------------------LOG IN VIEWS-----------------------------------
+def ProviderProfile(request, pk):
+    userInfo = get_object_or_404(User, pk=pk)
+    providerInfo = get_object_or_404(Provider, pk=Provider.user_id)
+    context = {
+        'user': request.user,
+        'providerInfo': providerInfo,
+        'userInfo': userInfo
+
+    }
+    return render(request, 'Angularapp/profile.html', context)
+
+
+
+#-----------------------------------------PROVIDER VIEWS-----------------------------------
+
+
+#-----------------------------------------GENERICS----------------------------------
 
 class ProviderListCreateView(generics.ListCreateAPIView):
     queryset = Provider.objects.all()
