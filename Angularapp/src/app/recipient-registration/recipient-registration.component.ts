@@ -28,7 +28,11 @@ export class RecipientRegistrationComponent implements OnInit {
       const formData = this.recipientForm.value;
       console.log(formData); // Log the form data
 
-      
+      // Make the HTTP request to the Django backend
+      this.http.post('https://waste-not-wizards.onrender.com/auth/users', formData).subscribe(
+        response => console.log('Success!', response),
+        error => console.error('Error!', error)
+      );
     }
   }
 }
