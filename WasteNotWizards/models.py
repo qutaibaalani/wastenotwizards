@@ -5,12 +5,68 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    STATE_CHOICES = [
+        ('AK', 'Alaska'),
+        ('AL', 'Alabama'),
+        ('AR', 'Arkansas'),
+        ('AZ', 'Arizona'),
+        ('CA', 'California'),
+        ('CO', 'Colorado'),
+        ('CT', 'Connecticut'),
+        ('DC', 'District of Columbia'),
+        ('DE', 'Delaware'),
+        ('FL', 'Florida'),
+        ('GA', 'Georgia'),
+        ('HI', 'Hawaii'),
+        ('IA', 'Iowa'),
+        ('ID', 'Idaho'),
+        ('IL', 'Illinois'),
+        ('IN', 'Indiana'),
+        ('KS', 'Kansas'),
+        ('KY', 'Kentucky'),
+        ('LA', 'Louisiana'),
+        ('MA', 'Massachusetts'),
+        ('MD', 'Maryland'),
+        ('ME', 'Maine'),
+        ('MI', 'Michigan'),
+        ('MN', 'Minnesota'),
+        ('MO', 'Missouri'),
+        ('MS', 'Mississippi'),
+        ('MT', 'Montana'),
+        ('NC', 'North Carolina'),
+        ('ND', 'North Dakota'),
+        ('NE', 'Nebraska'),
+        ('NH', 'New Hampshire'),
+        ('NJ', 'New Jersey'),
+        ('NM', 'New Mexico'),
+        ('NV', 'Nevada'),
+        ('NY', 'New York'),
+        ('OH', 'Ohio'),
+        ('OK', 'Oklahoma'),
+        ('OR', 'Oregon'),
+        ('PA', 'Pennsylvania'),
+        ('RI', 'Rhode Island'),
+        ('SC', 'South Carolina'),
+        ('SD', 'South Dakota'),
+        ('TN', 'Tennessee'),
+        ('TX', 'Texas'),
+        ('UT', 'Utah'),
+        ('VA', 'Virginia'),
+        ('VT', 'Vermont'),
+        ('WA', 'Washington'),
+        ('WI', 'Wisconsin'),
+        ('WV', 'West Virginia'),
+        ('WY', 'Wyoming'),
+    ]
     is_provider = models.BooleanField(default=False)
     is_receiver = models.BooleanField(default=False)
-    
+
     email = models.CharField(max_length=30, blank=True, null=True)
     phone_number = models.CharField(max_length=12, blank=True, null=True)
-    address = models.CharField(max_length=50, blank=True, null=True)
+    street_address = models.CharField(max_length=50, blank=True, null=True)
+    city = models.CharField(max_length=50, blank=True, null=True)
+    state = models.CharField(max_length=50, choices=STATE_CHOICES, blank=True, null=True)
+    zip_code = models.CharField(max_length=50, blank=True, null=True)
 
 
     def __str__(self):
@@ -26,18 +82,18 @@ class Provider(models.Model):
     provider_type = models.CharField(max_length=20, choices=PROVIDER_CHOICES)
 
     def __str__(self):
-        return self.user
+        return self.provider_type
 
 
 # Define the Post model
 class Post(models.Model):
-    provider = models.OneToOneField(Provider, on_delete=models.CASCADE)
+    posted_by_user = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True, blank=True, related_name='posted_by_user')
     food_list = models.TextField()
     monetary_value = models.IntegerField(blank=True, null=True)
     location = models.TextField()
 
     def __str__(self):
-        return self.provider
+        return self.food_list
 
 
 class Reservation(models.Model):
