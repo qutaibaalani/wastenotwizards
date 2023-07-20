@@ -7,11 +7,10 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
     is_provider = models.BooleanField(default=False)
     is_receiver = models.BooleanField(default=False)
-    
+
     email = models.CharField(max_length=30, blank=True, null=True)
     phone_number = models.CharField(max_length=12, blank=True, null=True)
     address = models.CharField(max_length=50, blank=True, null=True)
-
 
     def __str__(self):
         return self.username
@@ -40,6 +39,7 @@ class Post(models.Model):
         return self.provider
 
 
+# Define the Reservation model
 class Reservation(models.Model):
     receiver = models.OneToOneField(User, on_delete=models.CASCADE)
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
