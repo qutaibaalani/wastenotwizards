@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="provider-registration.component.css">
+  <title>Registration Form</title>
+  <style>
+    .logo {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="flex justify-center items-center h-screen">
+    <div class="registration-form">
+      <div class="form-header">
+        <h2 class="form-title">Provider Registration Form</h2>
+      </div>
+      <div class="logo-container">
+        <img src="https://i.postimg.cc/RF13Crr7/Logo-WNW.png" alt="Logo" class="logo">
+      </div>
+      <form [formGroup]="providerForm" (ngSubmit)="onSubmit()" class="form-container">
+        <div class="form-group">
+          <label for="provider-username" class="form-label">Username</label>
+          <input id="provider-username" type="text" formControlName="username" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="provider-businessName" class="form-label">Business Name</label>
+          <input id="provider-businessName" type="text" formControlName="businessName" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="provider-businessAddress" class="form-label">Business Address</label>
+          <input id="provider-businessAddress" type="text" formControlName="address" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="provider-zipcode" class="form-label">Zip Code</label>
+          <input id="provider-zipcode" type="text" formControlName="zipcode" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="provider-email" class="form-label">Email</label>
+          <input id="provider-email" type="email" formControlName="email" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="provider-phone" class="form-label">Phone</label>
+          <input id="provider-phone" type="tel" formControlName="phone" class="form-input">
+        </div>
+        <div class="form-group">
+          <label for="provider-password" class="form-label">Password</label>
+          <input id="provider-password" type="password" formControlName="password" class="form-input">
+        </div>
+        <button type="submit" class="form-button">Register</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

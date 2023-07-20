@@ -5,13 +5,9 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    USER_CHOICES = [
-        ("Provider", "Provider"),
-        ("Receiver", "Receiver"),
-    ]
-    user_type = models.CharField(
-        max_length=12, choices=USER_CHOICES, blank=True, null=True
-    )
+    is_provider = models.BooleanField(default=False)
+    is_receiver = models.BooleanField(default=False)
+    
     email = models.CharField(max_length=30, blank=True, null=True)
     phone_number = models.CharField(max_length=12, blank=True, null=True)
     address = models.CharField(max_length=50, blank=True, null=True)
