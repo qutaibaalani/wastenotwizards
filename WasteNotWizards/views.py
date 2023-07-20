@@ -25,19 +25,31 @@ class ProfileViewSet(generics.RetrieveUpdateDestroyAPIView):
 
 # -----------------------------------------PROVIDER VIEWS-----------------------------------
 
-
-# -----------------------------------------GENERICS----------------------------------
-
-
 class ProviderListCreateView(generics.ListCreateAPIView):
     queryset = Provider.objects.all()
     serializer_class = ProviderListSerializer
 
+class ProviderPostsView(generics.ListAPIView):
+    queryset = Post.objects.all()
 
-# For listing instances of the `Post` model.
-class PostListView(generics.ListAPIView):
+    def get_queryset(self):
+        return self.request.user.posted_by_user
+    serializer_class = PostListSerializer
+
+class OnePostView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+#-----------------------------------------RECEIVER VIEWS----------------------------------
+
+# For listing instances of the `Post` model.
+class AllPostView(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostListSerializer
+
 
 
 # For listing reservations related to a `Receiver` instance.
@@ -45,4 +57,6 @@ class ReceiverReservationListView(generics.ListAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationListSerializer
     # The `lookup_field` is set to "receiver__user__username" to retrieve reservations based on the username of the associated receiver's user.
-    lookup_field = "receiver__user__username"
+    lookup_field = "username"
+
+

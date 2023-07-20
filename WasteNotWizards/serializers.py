@@ -28,19 +28,13 @@ class ProviderListSerializer(serializers.ModelSerializer):
 
 # Serializer class for the Post model
 class PostListSerializer(serializers.ModelSerializer):
-    provider = serializers.SlugRelatedField(
-        slug_field="username", queryset=User.objects.all()
+    posted_by_user = serializers.SlugRelatedField(
+        slug_field='username', queryset=User.objects.all()
     )
 
     class Meta:
         model = Post
-        fields = [
-            "provider",
-            "food_list",
-            "monetary_value",
-            "location",
-            "time_frame",
-        ]
+        fields = '__all__'
 
 
 # Serializer for the Reservation model
