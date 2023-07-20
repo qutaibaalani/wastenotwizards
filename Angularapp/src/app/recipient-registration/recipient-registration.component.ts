@@ -14,7 +14,7 @@ export class RecipientRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.recipientForm = this.fb.group({
-      name: ['', Validators.required],
+      username: ['', Validators.required],
       address: [''],
       zipcode: [''],
       email: ['', [Validators.required, Validators.email]],
@@ -29,7 +29,9 @@ export class RecipientRegistrationComponent implements OnInit {
       console.log(formData); // Log the form data
 
       // Make the HTTP request to the Django backend
-      this.http.post('https://waste-not-wizards.onrender.com/auth/users', formData).subscribe(
+      this.http.post('https://waste-not-wizards.onrender.com/auth/users/', formData, {
+        headers: {'Content-Type': 'application/json'}
+      }).subscribe(
         response => console.log('Success!', response),
         error => console.error('Error!', error)
       );
