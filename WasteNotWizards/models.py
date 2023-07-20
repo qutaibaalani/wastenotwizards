@@ -68,7 +68,6 @@ class User(AbstractUser):
     state = models.CharField(max_length=50, choices=STATE_CHOICES, blank=True, null=True)
     zip_code = models.CharField(max_length=50, blank=True, null=True)
 
-
     def __str__(self):
         return self.username
 
@@ -96,6 +95,7 @@ class Post(models.Model):
         return self.food_list
 
 
+# Define the Reservation model
 class Reservation(models.Model):
     receiver = models.OneToOneField(User, on_delete=models.CASCADE)
     post = models.OneToOneField(Post, on_delete=models.CASCADE)

@@ -7,4 +7,6 @@ urlpatterns = [
     path("posts", views.AllPostView.as_view(), name="post_list"),
     path('api/posts/<int:pk>/', views.OnePostView.as_view(), name='post_detail'),
     path("profile/<username>/posts/", views.ProviderPostsView.as_view(), name="posts-created"),
+    path("reservations/receiver/<str:username>/",views.ReceiverReservationListView.as_view(),name="receiver_reservation_list"),
+
 ]
