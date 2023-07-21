@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,45 +11,43 @@
     }
   </style>
 </head>
-
 <body>
   <div class="flex justify-center items-center h-screen">
     <div class="registration-form">
       <div class="form-header">
-        <h2 class="form-title">Registration Form</h2>
+        <h2 class="form-title">Recipient Registration Form</h2>
       </div>
       <div class="logo-container">
         <img src="https://i.postimg.cc/RF13Crr7/Logo-WNW.png" alt="Logo" class="logo">
       </div>
       <form [formGroup]="recipientForm" (ngSubmit)="onSubmit()" class="form-container">
         <div class="form-group">
-          <label for="name" class="form-label">Name</label>
-          <input id="name" type="text" formControlName="name" class="form-input">
+          <label for="recipient-username" class="form-label">Username</label>
+          <input id="recipient-username" type="text" formControlName="username" class="form-input">
         </div>
         <div class="form-group">
-          <label for="address" class="form-label">Address</label>
-          <input id="address" type="text" formControlName="address" class="form-input">
+          <label for="recipient-address" class="form-label">Address</label>
+          <input id="recipient-address" type="text" formControlName="address" class="form-input">
         </div>
         <div class="form-group">
-          <label for="zipcode" class="form-label">Zip Code</label>
-          <input id="zipcode" type="text" formControlName="zipcode" class="form-input">
+          <label for="recipient-zipcode" class="form-label">Zip Code</label>
+          <input id="recipient-zipcode" type="text" formControlName="zipcode" class="form-input">
         </div>
         <div class="form-group">
-          <label for="email" class="form-label">Email</label>
-          <input id="email" type="email" formControlName="email" class="form-input">
+          <label for="recipient-email" class="form-label">Email</label>
+          <input id="recipient-email" type="email" formControlName="email" class="form-input">
         </div>
         <div class="form-group">
-          <label for="phone" class="form-label">Phone</label>
-          <input id="phone" type="tel" formControlName="phone" class="form-input">
+          <label for="recipient-phone" class="form-label">Phone</label>
+          <input id="recipient-phone" type="tel" formControlName="phone" class="form-input">
         </div>
         <div class="form-group">
-          <label for="password" class="form-label">Password</label>
-          <input id="password" type="password" formControlName="password" class="form-input">
+          <label for="recipient-password" class="form-label">Password</label>
+          <input id="recipient-password" type="password" formControlName="password" class="form-input">
         </div>
         <button type="submit" class="form-button">Register</button>
       </form>
     </div>
   </div>
 </body>
-
 </html>

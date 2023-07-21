@@ -3,18 +3,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-recipient-registration',
-  templateUrl: './recipient-registration.component.html',
-  styleUrls: ['./recipient-registration.component.css']
+  selector: 'app-provider-registration',
+  templateUrl: './provider-registration.component.html',
+  styleUrls: ['./provider-registration.component.css']
 })
-export class RecipientRegistrationComponent implements OnInit {
-  recipientForm!: FormGroup;
+export class ProviderRegistrationComponent implements OnInit {
+  providerForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private http: HttpClient) { }
 
-  ngOnInit() {
-    this.recipientForm = this.fb.group({
+  ngOnInit(): void {
+    this.providerForm = this.fb.group({
       username: ['', Validators.required],
+      businessName: [''],
       address: [''],
       zipcode: [''],
       email: ['', [Validators.required, Validators.email]],
@@ -23,14 +24,16 @@ export class RecipientRegistrationComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (this.recipientForm.valid) {
-      const formData = this.recipientForm.value;
-      console.log(formData); // Log the form data
+  onSubmit(): void {
+    if (this.providerForm.valid) {
+      const formData = this.providerForm.value;
 
-      // Make the HTTP request to the Django backend
+      // Log the form data
+      console.log(formData);
+
+      // Make the HTTP request to the backend
       this.http.post('https://waste-not-wizards.onrender.com/auth/users/', formData, {
-        headers: {'Content-Type': 'application/json'}
+        headers: { 'Content-Type': 'application/json' }
       }).subscribe(
         response => console.log('Success!', response),
         error => console.error('Error!', error)
