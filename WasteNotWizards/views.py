@@ -4,7 +4,7 @@ from .models import User, Provider, Post, Reservation
 from .serializers import (
     ProviderListSerializer,
     PostListSerializer,
-    ReservationListSerializer,
+    ReservationSerializer,
     ProfileSerializer,
 )
 
@@ -43,6 +43,6 @@ class PostListView(generics.ListAPIView):
 # For listing reservations related to a `Receiver` instance.
 class ReceiverReservationListView(generics.ListAPIView):
     queryset = Reservation.objects.all()
-    serializer_class = ReservationListSerializer
+    serializer_class = ReservationSerializer
     # The `lookup_field` is set to "receiver__user__username" to retrieve reservations based on the username of the associated receiver's user.
     lookup_field = "receiver__user__username"
