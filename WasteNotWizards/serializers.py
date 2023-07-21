@@ -28,18 +28,28 @@ class ProviderListSerializer(serializers.ModelSerializer):
 
 # Serializer class for the Post model
 class PostListSerializer(serializers.ModelSerializer):
-    provider = serializers.SlugRelatedField(
-        slug_field="username", queryset=User.objects.all()
+    posted_by_user = serializers.SlugRelatedField(
+        slug_field='username', queryset=User.objects.all()
     )
 
     class Meta:
         model = Post
+        fields = '__all__'
+
+
+# Serializer for the Reservation model
+class ReservationSerializer(serializers.ModelSerializer):
+    receiver = serializers.SlugRelatedField(
+        slug_field="username", queryset=User.objects.all()
+    )
+
+    class Meta:
+        model = Reservation
         fields = [
-            "provider",
-            "food_list",
-            "monetary_value",
-            "location",
-            "time_frame",
+            "id",
+            "receiver",
+            "reserved_at",
+            "picked_up",
         ]
 
 
@@ -50,8 +60,8 @@ class PostListSerializer(serializers.ModelSerializer):
 #         fields = "__all__"
 
 
-# Serializer for Reservation model to include all fields
-class ReservationListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Reservation
-        fields = "__all__"
+# # Serializer for Reservation model to include all fields
+# class ReservationListSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Reservation
+#         fields = "__all__"
