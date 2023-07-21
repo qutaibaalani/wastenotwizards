@@ -6,17 +6,19 @@ import { HttpClientModule } from '@angular/common/http'; // Import HttpClientMod
 import { AppComponent } from './app.component';
 import { RecipientRegistrationComponent } from './recipient-registration/recipient-registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProviderRegistrationComponent } from './provider-registration/provider-registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RecipientRegistrationComponent
+    RecipientRegistrationComponent,
+    ProviderRegistrationComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    HttpClientModule, // Add HttpClientModule to the imports array
-    RouterModule.forRoot([]) /* Add RouterModule to the imports array with an empty routes configuration*/
+    HttpClientModule, 
+    RouterModule.forRoot([]) 
   ],
   providers: [],
   bootstrap: [AppComponent]
