@@ -7,7 +7,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 .h-screen {
@@ -20,8 +19,9 @@ body {
     border-radius: 0.5rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 2rem;
-    margin-top: 6in;
-    margin-bottom: 6in;
+    margin-top: 2in;  
+    margin-bottom: 2in; 
+    overflow-y: auto;  /* makes it scrollable*/
 }
 
 .form-header {
