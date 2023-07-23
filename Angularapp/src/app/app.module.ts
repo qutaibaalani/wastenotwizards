@@ -10,6 +10,7 @@ import { ProviderRegistrationComponent } from './provider-registration/provider-
 import { MapboxComponent } from './mapbox/mapbox.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { ProviderPostComponent } from './provider-post/provider-post.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { LogoutComponent } from './logout/logout.component';
     ProviderRegistrationComponent,
     MapboxComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    ProviderPostComponent
   ],
   imports: [
     BrowserModule,
