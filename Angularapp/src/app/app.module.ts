@@ -8,13 +8,15 @@ import { RecipientRegistrationComponent } from './recipient-registration/recipie
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProviderRegistrationComponent } from './provider-registration/provider-registration.component';
 import { MapboxComponent } from './mapbox/mapbox.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipientRegistrationComponent,
     ProviderRegistrationComponent,
-    MapboxComponent
+    MapboxComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
