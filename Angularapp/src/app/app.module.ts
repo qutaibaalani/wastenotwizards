@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProviderRegistrationComponent } from './provider-registration/provider-registration.component';
 import { MapboxComponent } from './mapbox/mapbox.component';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { LoginComponent } from './login/login.component';
     RecipientRegistrationComponent,
     ProviderRegistrationComponent,
     MapboxComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
