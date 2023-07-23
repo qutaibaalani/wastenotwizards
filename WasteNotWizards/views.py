@@ -31,10 +31,11 @@ class ProviderListCreateView(generics.ListCreateAPIView):
 
 class ProviderPostsView(generics.ListAPIView):
     queryset = Post.objects.all()
-
+    serializer_class = PostListSerializer
+    
     def get_queryset(self):
         return self.request.user.posted_by_user
-    serializer_class = PostListSerializer
+
 
 class OnePostView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
