@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { RecipientRegistrationComponent } from './recipient-registration/recipient-registration.component';
@@ -11,6 +11,17 @@ import { MapboxComponent } from './mapbox/mapbox.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ProviderPostComponent } from './provider-post/provider-post.component';
+
+// Define your routes
+const routes: Routes = [
+  { path: 'recipient-registration', component: RecipientRegistrationComponent },
+  { path: 'provider-registration', component: ProviderRegistrationComponent },
+  { path: 'map', component: MapboxComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
+  { path: 'provider-post', component: ProviderPostComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, // redirect to login if no path
+];
 
 @NgModule({
   declarations: [
@@ -26,10 +37,9 @@ import { ProviderPostComponent } from './provider-post/provider-post.component';
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule, 
-    RouterModule.forRoot([]) 
+    RouterModule.forRoot(routes)  
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-

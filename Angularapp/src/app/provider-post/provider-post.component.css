@@ -13,14 +13,14 @@ body {
     height: 100vh;
 }
 
-.registration-form {
+.post-form-container {
     max-width: 32rem;
     background-color: #F2F1F7;
     border-radius: 0.5rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 2rem;
-    margin-top: 2in;
-    margin-bottom: 2in;
+    margin-top: 2in;  
+    margin-bottom: 2in; 
     overflow-y: auto;
 }
 
