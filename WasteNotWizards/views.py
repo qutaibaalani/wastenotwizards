@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 from .models import User, Provider, Post, Reservation
 from .serializers import (
     ProviderListSerializer,
@@ -31,21 +32,36 @@ class ProviderListCreateView(generics.ListCreateAPIView):
     serializer_class = ProviderListSerializer
 
 
+# class ProviderPostsView(generics.ListAPIView):
+#     queryset = Post.objects.all()
+
+#     def get_queryset(self):
+#         return self.request.user.posted_by_user
+
+#     serializer_class = PostListSerializer
+
+
 class ProviderPostsView(generics.ListAPIView):
     queryset = Post.objects.all()
+    serializer_class = PostListSerializer
+    # Only authenticated users can access this view
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return self.request.user.posted_by_user
-
-    serializer_class = PostListSerializer
+        if self.request.user.is_authenticated:
+            # If authenticated, return posts posted by the authenticated user
+            return Post.objects.filter(posted_by_user=self.request.user)
+        else:
+            # If anonymous, return an empty queryset to indicate no posts are available.
+            return Post.objects.none()
 
 
 class OnePostView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+    # def perform_create(self, serializer):
+    #     serializer.save(user=self.request.user)
 
 
 # -----------------------------------------RECEIVER VIEWS----------------------------------
