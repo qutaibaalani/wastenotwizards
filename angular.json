@@ -16,16 +16,15 @@
               "outputPath": "Angularapp/dist/angularapp",
               "index": "Angularapp/src/index.html",
               "main": "Angularapp/src/main.ts",
-              "polyfills": [
-                "zone.js"
-              ],
+              "polyfills": ["zone.js"],
               "tsConfig": "Angularapp/tsconfig.app.json",
               "assets": [
                 "Angularapp/src/favicon.ico",
                 "Angularapp/src/assets"
               ],
               "styles": [
-                "Angularapp/src/styles.css"
+                "Angularapp/src/styles.css",
+                "node_modules/mapbox-gl/dist/mapbox-gl.css"
               ],
               "scripts": []
             },
@@ -77,18 +76,10 @@
           "test": {
             "builder": "@angular-devkit/build-angular:karma",
             "options": {
-              "polyfills": [
-                "zone.js",
-                "zone.js/testing"
-              ],
+              "polyfills": ["zone.js", "zone.js/testing"],
               "tsConfig": "tsconfig.spec.json",
-              "assets": [
-                "src/favicon.ico",
-                "src/assets"
-              ],
-              "styles": [
-                "src/styles.css"
-              ],
+              "assets": ["src/favicon.ico", "src/assets"],
+              "styles": ["src/styles.css"],
               "scripts": []
             }
           }
