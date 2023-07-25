@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router'; // import Router for route to map
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class LoginComponent implements OnInit {
     loginForm!: FormGroup;
 
-    constructor(private fb: FormBuilder, private http: HttpClient) { }
+    constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { } // 'inject' Router
 
     ngOnInit() {
         this.loginForm = this.fb.group({
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.required],
         });
     }
+
     onSubmit() {
         if (this.loginForm.valid) {
             const loginData = this.loginForm.value;
@@ -26,10 +28,10 @@ export class LoginComponent implements OnInit {
             }).subscribe(
                 response => {
                     console.log('Success!', response);
+                    this.router.navigate(['/map']); // navigate to map page on successful login
                 },
-                error => console.error('Error!, error')
+                error => console.error('Error!', error)
             );
         }
     }
-
 }
