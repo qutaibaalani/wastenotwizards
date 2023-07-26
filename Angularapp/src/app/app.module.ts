@@ -11,6 +11,7 @@ import { MapboxComponent } from './mapbox/mapbox.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ProviderPostComponent } from './provider-post/provider-post.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 // Define your routes
 const routes: Routes = [
@@ -31,7 +32,8 @@ const routes: Routes = [
     MapboxComponent,
     LoginComponent,
     LogoutComponent,
-    ProviderPostComponent
+    ProviderPostComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,
