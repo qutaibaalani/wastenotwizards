@@ -2,14 +2,22 @@ from .models import Provider, Post, Reservation, User
 from rest_framework import serializers
 
 
+# ----------------------------------------- PROFILE SERIALIZER -----------------------------------------
+
+
+# Serializer for the User model to include all fields
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = "__all__"
 
 
-# Serializer for Provider model to include all fields
+# ----------------------------------------- PROVIDER SERIALIZER -----------------------------------------
+
+
+# Serializer for the Provider model to include selected fields
 class ProviderListSerializer(serializers.ModelSerializer):
+    # Include the username of the related User model as a slug field
     username = serializers.SlugRelatedField(
         slug_field="username", queryset=User.objects.all()
     )
@@ -26,19 +34,27 @@ class ProviderListSerializer(serializers.ModelSerializer):
         ]
 
 
-# Serializer class for the Post model
+# ----------------------------------------- POST SERIALIZER -----------------------------------------
+
+
+# Serializer for the Post model to include selected fields
 class PostListSerializer(serializers.ModelSerializer):
+    # Include the username of the related User model as a slug field
     posted_by_user = serializers.SlugRelatedField(
-        slug_field='username', queryset=User.objects.all()
+        slug_field="username", queryset=User.objects.all()
     )
 
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = "__all__"
 
 
-# Serializer for the Reservation model
+# ----------------------------------------- RESERVATION SERIALIZER -----------------------------------------
+
+
+# Serializer for the Reservation model to include selected fields
 class ReservationSerializer(serializers.ModelSerializer):
+    # Include the username of the related User model as a slug field
     receiver = serializers.SlugRelatedField(
         slug_field="username", queryset=User.objects.all()
     )
@@ -51,17 +67,3 @@ class ReservationSerializer(serializers.ModelSerializer):
             "reserved_at",
             "picked_up",
         ]
-
-
-# # Define the serializer for the Post model to include all fields
-# class PostListSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Post
-#         fields = "__all__"
-
-
-# # Serializer for Reservation model to include all fields
-# class ReservationListSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Reservation
-#         fields = "__all__"
