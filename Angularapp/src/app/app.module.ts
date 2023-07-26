@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { RecipientRegistrationComponent } from './recipient-registration/recipient-registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -22,6 +21,7 @@ const routes: Routes = [
   { path: 'login/success', redirectTo: '/map', pathMatch: 'full'}, /*redirect to map after successful login*/
   { path: 'logout', component: LogoutComponent },
   { path: 'provider-post', component: ProviderPostComponent },
+  { path: 'reservation', component: ReservationComponent }, 
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // redirect to login if no path
 ];
 
