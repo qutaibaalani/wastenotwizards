@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'provider-registration', component: ProviderRegistrationComponent },
   { path: 'map', component: MapboxComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'login/success', redirectTo: '/map', pathMatch: 'full'}, /*redirect to map after successful login*/
   { path: 'logout', component: LogoutComponent },
   { path: 'provider-post', component: ProviderPostComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // redirect to login if no path
