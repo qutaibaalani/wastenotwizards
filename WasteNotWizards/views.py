@@ -10,37 +10,34 @@ from .serializers import (
 )
 
 
+# ----------------------------------------- GENERAL VIEWS -----------------------------------
+
+
+# Home view for rendering the index.html template
 def home(request):
     return render(request, "index.html")
 
 
-# Create your views here.
+# ----------------------------------------- LOG IN VIEWS -----------------------------------
 
 
-# -----------------------------------------LOG IN VIEWS-----------------------------------
+# View for retrieving, updating, and deleting user profiles
 class ProfileViewSet(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = ProfileSerializer
     lookup_field = "username"
 
 
-# -----------------------------------------PROVIDER VIEWS-----------------------------------
+# ----------------------------------------- PROVIDER VIEWS -----------------------------------
 
 
+# View for listing and creating providers
 class ProviderListCreateView(generics.ListCreateAPIView):
     queryset = Provider.objects.all()
     serializer_class = ProviderListSerializer
 
 
-# class ProviderPostsView(generics.ListAPIView):
-#     queryset = Post.objects.all()
-
-#     def get_queryset(self):
-#         return self.request.user.posted_by_user
-
-#     serializer_class = PostListSerializer
-
-
+# View for listing posts related to a provider
 class ProviderPostsView(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
@@ -56,24 +53,22 @@ class ProviderPostsView(generics.ListAPIView):
             return Post.objects.none()
 
 
+# View for retrieving, updating, and deleting a specific post
 class OnePostView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
-
-    # def perform_create(self, serializer):
-    #     serializer.save(user=self.request.user)
 
 
 # -----------------------------------------RECEIVER VIEWS----------------------------------
 
 
-# For listing instances of the `Post` model.
+# View for listing and creating all posts
 class AllPostView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
 
 
-# For listing reservations related to a `Receiver` instance.
+# View for listing reservations related to a receiver instance
 class ReceiverReservationListView(generics.ListAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
@@ -81,7 +76,7 @@ class ReceiverReservationListView(generics.ListAPIView):
     lookup_field = "username"
 
 
-# For retrieving, updating, and deleting a specific reservation
+# View for retrieving, updating, and deleting a specific reservation
 class ReservationUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
