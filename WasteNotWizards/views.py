@@ -14,8 +14,35 @@ from .serializers import (
     PostAddressSerializer,
 )
 from django.http import JsonResponse
-from .utils import get_coordinates_from_address
+from .utils import get_coordinates_from_address, geocode_address
 from django.views.decorators.csrf import csrf_exempt
+from .models import User, Post
+
+
+@csrf_exempt
+def geocode_addresses_post(request):
+    posts = Post.objects.all()
+
+    for post in posts:
+        latitude, longitude = geocode_address(post.address)
+        post.latitude = latitude
+        post.longitude = longitude
+        post.save()
+
+    return JsonResponse({"status": "success", "latitude": latitude, "longitude": longitude})
+
+@csrf_exempt
+def geocode_addresses_user(request):
+    addresses = User.objects.all()
+
+    for address in addresses:
+        latitude, longitude = geocode_address(address.address)
+        address.latitude = latitude
+        address.longitude = longitude
+        address.save()
+
+    return JsonResponse({"status": "success", "latitude": latitude, "longitude": longitude})
+
 
 @csrf_exempt
 def geocode_user_address(request):
