@@ -1,4 +1,4 @@
-<div class="flex h-screen">
+<div class="flex h-screen relative"> >
     <div class="login-form">
       <div class="form-header">
         <h2 class="form-title">Login</h2>
@@ -17,5 +17,12 @@
         </div>
       </form>
     </div>
-  </div>
-  
+
+    <!-- Spinnah overlay -->
+    <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50" *ngIf="loading">
+        <div class="magic-wand-spinner">
+            <div class="stick"></div>
+            <div class="star"></div>
+        </div>
+    </div>
+</div>
