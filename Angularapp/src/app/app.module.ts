@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { RecipientRegistrationComponent } from './recipient-registration/recipient-registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProviderRegistrationComponent } from './provider-registration/provider-registration.component';
-import { MapboxComponent } from './mapbox/mapbox.component';
+import { MapBoxComponent } from './mapbox/mapbox.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ProviderPostComponent } from './provider-post/provider-post.component';
@@ -16,7 +16,7 @@ import { ProviderPostComponent } from './provider-post/provider-post.component';
 const routes: Routes = [
   { path: 'recipient-registration', component: RecipientRegistrationComponent },
   { path: 'provider-registration', component: ProviderRegistrationComponent },
-  { path: 'map', component: MapboxComponent },
+  { path: 'map', component: MapBoxComponent },
   { path: 'login', component: LoginComponent },
   { path: 'login/success', redirectTo: '/map', pathMatch: 'full'}, /*redirect to map after successful login*/
   { path: 'logout', component: LogoutComponent },
@@ -29,7 +29,7 @@ const routes: Routes = [
     AppComponent,
     RecipientRegistrationComponent,
     ProviderRegistrationComponent,
-    MapboxComponent,
+    MapBoxComponent,
     LoginComponent,
     LogoutComponent,
     ProviderPostComponent

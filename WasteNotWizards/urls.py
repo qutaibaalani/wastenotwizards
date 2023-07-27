@@ -21,4 +21,6 @@ urlpatterns = [
         views.ReservationUpdateDestroyView.as_view(),
         name="reservation_detail",
     ),
+    path("geocode", views.geocode_user_address, name="geocode"),
+    path("post-addresses", views.postAddresses.as_view(), name="post-addresses")
 ]

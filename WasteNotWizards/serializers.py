@@ -36,6 +36,11 @@ class PostListSerializer(serializers.ModelSerializer):
         model = Post
         fields = '__all__'
 
+class PostAddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ['location']
+
 
 # Serializer for the Reservation model
 class ReservationSerializer(serializers.ModelSerializer):
