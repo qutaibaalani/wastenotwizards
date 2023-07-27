@@ -7,26 +7,27 @@
     </div>
     <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label class="form-label" for="foodName">Food Name</label>
-        <input class="form-input" type="text" formControlName="foodName" id="foodName">
+        <label class="form-label" for="posted_by_user">Posted By User</label>
+        <input class="form-input" type="text" formControlName="posted_by_user" id="posted_by_user">
       </div>
       <div class="form-group">
-        <label class="form-label" for="foodDescription">Food Description</label>
-        <input class="form-input" type="text" formControlName="foodDescription" id="foodDescription">
+        <label class="form-label" for="food_list">Food List</label>
+        <input class="form-input" type="text" formControlName="food_list" id="food_list">
       </div>
       <div class="form-group">
-        <label class="form-label" for="quantity">Quantity</label>
-        <input class="form-input" type="number" formControlName="quantity" id="quantity">
+        <label class="form-label" for="location">Location</label>
+        <input class="form-input" type="text" formControlName="location" id="location">
       </div>
       <div class="form-group">
-        <label class="form-label" for="pickupLocation">Pickup Location</label>
-        <input class="form-input" type="text" formControlName="pickupLocation" id="pickupLocation">
+        <label class="form-label" for="monetary_value">Monetary Value</label>
+        <input class="form-input" type="number" formControlName="monetary_value" id="monetary_value">
       </div>
       <div class="form-group">
-        <label class="form-label" for="expirationDate">Expiration Date</label>
-        <input class="form-input" type="date" formControlName="expirationDate" id="expirationDate">
+        <label class="form-label" for="address">Address</label>
+        <input class="form-input" type="text" formControlName="address" id="address">
       </div>
       <button class="form-button" type="submit">Submit</button>
     </form>
   </div>
+  
   
