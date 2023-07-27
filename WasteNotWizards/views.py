@@ -33,13 +33,13 @@ def geocode_addresses_post(request):
 
 @csrf_exempt
 def geocode_addresses_user(request):
-    addresses = User.objects.all()
+    users = User.objects.all()
 
-    for address in addresses:
-        latitude, longitude = geocode_address(address.address)
-        address.latitude = latitude
-        address.longitude = longitude
-        address.save()
+    for user in users:
+        latitude, longitude = geocode_address(user.address)
+        user.user_latitude = latitude
+        user.user_longitude = longitude
+        user.save()
 
     return JsonResponse({"status": "success", "latitude": latitude, "longitude": longitude})
 
