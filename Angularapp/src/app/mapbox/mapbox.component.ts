@@ -1,10 +1,10 @@
 // map.component.ts
 import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
-import { UserAddressService } from './user-address.service';
+import { PostAddressService } from './user-address.service';
 
-// Interface for user address model
-export interface UserAddress {
+
+export interface PostAddress {
   id: number;
   address: string;
   latitude: number;
@@ -12,49 +12,45 @@ export interface UserAddress {
 }
 
 @Component({
-  selector: 'app-mapbox',
+  selector: 'app-map',
   templateUrl: './mapbox.component.html',
   styleUrls: ['./mapbox.component.css']
 })
 export class MapBoxComponent implements OnInit {
-  map: mapboxgl.Map;
-  userAddresses: UserAddress[];
+  private map: mapboxgl.Map;
+  private mapContainer: HTMLElement;
+  private addresses: PostAddress[]; // Replace 'any' with your specific address data type
 
-  constructor(private userAddressService: UserAddressService) {}
+  constructor(private addressService: PostAddressService) {}
 
   ngOnInit() {
-
-    // Initialize the map
-    (mapboxgl as any).accessToken = 'pk.eyJ1IjoibWVhZ2FucnViaW5vIiwiYSI6ImNsa2QweHh0czBzbzMzanBoamxlNWYwN3EifQ.Z1_FaWyOr3_mK9ErWinJFw';
-
-    this.map = new mapboxgl.Map({
-      container: 'map', 
-      style: 'mapbox://styles/mapbox/streets-v11', 
-      center: [-78.644257, 35.787743], 
-      zoom: 10
-    });
-  
-    console.log(this.map)
-    // Fetch user addresses from the Django API
-    this.userAddressService.getUserAddresses().subscribe(
-      (addresses: UserAddress[]) => {
-        this.userAddresses = addresses;
-        console.log(addresses)
-        this.displayMarkers();
-      },
-      (error) => {
-        console.error('Error fetching user addresses:', error);
+    setTimeout(() => {
+    this.addressService.getPostAddresses().subscribe(
+      (data) => {
+        this.addresses = data;
+        this.mapContainer = document.getElementById('map')
+        this.initMap();
       }
     );
+  }, 2000);
   }
 
-  displayMarkers() {
-    // Add markers for each user address
-    this.userAddresses.forEach((address) => {
-      const popup = new mapboxgl.Popup().setText(address.address);
+  private initMap() {
+    (mapboxgl as any).accessToken = 'sk.eyJ1IjoiZXhvMzAiLCJhIjoiY2xra21rMHJvMDM0NDNqbzVuNXQ5M3l4ciJ9.-g5BHTGRGDy1DT9wfrGfNQ';
+    this.map = new mapboxgl.Map({
+      container: this.mapContainer,
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: [43.02157, -74.10025], // Set the initial center of the map
+      zoom: 10 // Set the initial zoom level of the map
+    });
+  
+
+
+    // Add map markers based on addresses
+    this.addresses.forEach((address) => {
+      const { longitude, latitude } = address;
       new mapboxgl.Marker()
-        .setLngLat([address.longitude, address.latitude])
-        .setPopup(popup)
+        .setLngLat([longitude, latitude])
         .addTo(this.map);
     });
   }

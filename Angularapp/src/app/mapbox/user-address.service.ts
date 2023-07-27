@@ -1,22 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserAddress } from './mapbox.component';
+
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserAddressService {
-  private apiUrl = 'https://waste-not-wizards.onrender.com/api/post-addresses/';
+export class PostAddressService {
+  private apiUrl = 'https://waste-not-wizards.onrender.com/api/posts/geocode';
   private geocodeUrl = 'https://waste-not-wizards.onrender.com/api/geocode/';
 
   constructor(private http: HttpClient) {}
 
-  getUserAddresses(): Observable<UserAddress[]> {
-    return this.http.get<UserAddress[]>(this.apiUrl);
+  getPostAddresses(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 
-  geocodeAddress(address: string): Observable<any> {
-    return this.http.post<any>(this.geocodeUrl, { address });
-  }
+  //geocodeAddress(address: string): Observable<any> {
+    //return this.http.post<any>(this.geocodeUrl, { address });
+  //}
 }
