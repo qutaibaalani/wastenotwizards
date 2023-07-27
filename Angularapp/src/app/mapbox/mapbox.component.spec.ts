@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapboxComponent } from './mapbox.component';
+import { MapBoxComponent } from './mapbox.component';
 
 describe('MapboxComponent', () => {
-  let component: MapboxComponent;
-  let fixture: ComponentFixture<MapboxComponent>;
+  let component: MapBoxComponent;
+  let fixture: ComponentFixture<MapBoxComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MapboxComponent]
+      declarations: [MapBoxComponent]
     });
-    fixture = TestBed.createComponent(MapboxComponent);
+    fixture = TestBed.createComponent(MapBoxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

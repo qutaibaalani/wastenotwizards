@@ -11,7 +11,26 @@ from .serializers import (
     PostListSerializer,
     ReservationSerializer,
     ProfileSerializer,
+    PostAddressSerializer,
 )
+from django.http import JsonResponse
+from .utils import get_coordinates_from_address
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def geocode_user_address(request):
+    if request.method == "POST":
+        address = request.POST.get("address")
+        access_token ='pk.eyJ1IjoiZXhvMzAiLCJhIjoiY2xrY3N4Nzg2MGg2dTNmbzdxNHpmNmllNCJ9.3171IXDc3q17m_dIdf8-yQ'  # Replace this with your actual Mapbox access token
+
+        latitude, longitude = get_coordinates_from_address(address, access_token)
+
+        if latitude is not None and longitude is not None:
+            # Save the latitude and longitude to your UserAddress model and return a success response
+            # (code for saving to the database is omitted here)
+            return JsonResponse({"status": "success", "latitude": latitude, "longitude": longitude})
+        else:
+            return JsonResponse({"status": "error", "message": "Invalid address or geocoding failed."})
 
 
 # ----------------------------------------- GENERAL VIEWS -----------------------------------
@@ -67,6 +86,10 @@ class OnePostView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostListSerializer
     # Authenticated users can update/delete, everyone can read
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+class postAddresses(generics.ListAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostAddressSerializer
 
 
 # -----------------------------------------RECEIVER VIEWS----------------------------------

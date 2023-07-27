@@ -48,6 +48,11 @@ class PostListSerializer(serializers.ModelSerializer):
         model = Post
         fields = "__all__"
 
+class PostAddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ['location']
+
 
 # ----------------------------------------- RESERVATION SERIALIZER -----------------------------------------
 
