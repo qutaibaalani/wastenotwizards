@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
     loginForm!: FormGroup;
+    loading: boolean = false;
 
     constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) { } 
 
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
+        this.loading = true; // set loading to true when the form is submitted
         if (this.loginForm.valid) {
             const loginData = this.loginForm.value;
             this.http.post('https://waste-not-wizards.onrender.com/auth/token/login', loginData, {
@@ -28,10 +30,16 @@ export class LoginComponent implements OnInit {
             }).subscribe({
                 next: (response) => {
                     console.log('Success!', response);
-                    this.router.navigate(['/map']); 
+                    this.loading = false; // set loading to false when response is received
+                    alert('Welcome, ' + loginData.username + '!');
+                    setTimeout(() => this.router.navigate(['/map']), 500); // delay nav to allow alert to show
                 },
-                error: (error) => console.error('Error!', error)
+                error: (error) => {
+                    console.error('Error!', error);
+                    this.loading = false; // set loading to false when an error occurs
+                }
             });
         }
     }
 }
+
