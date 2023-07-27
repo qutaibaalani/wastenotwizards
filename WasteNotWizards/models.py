@@ -66,12 +66,9 @@ class User(AbstractUser):
 
     email = models.CharField(max_length=30, blank=True, null=True)
     phone_number = models.CharField(max_length=12, blank=True, null=True)
-    street_address = models.CharField(max_length=50, blank=True, null=True)
-    city = models.CharField(max_length=50, blank=True, null=True)
-    state = models.CharField(
-        max_length=50, choices=STATE_CHOICES, blank=True, null=True
-    )
-    zip_code = models.CharField(max_length=50, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
+    user_latitude = models.FloatField(blank=True, null=True)
+    user_longitude = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.username
@@ -107,7 +104,9 @@ class Post(models.Model):
     )
     food_list = models.TextField()
     monetary_value = models.IntegerField(blank=True, null=True)
-    location = models.TextField()
+    address = models.TextField()
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
 
     def __str__(self):
         return self.food_list

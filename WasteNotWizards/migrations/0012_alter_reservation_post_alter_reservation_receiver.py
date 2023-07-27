@@ -1,4 +1,4 @@
-map-markers
+
 
 
 from django.conf import settings
