@@ -48,7 +48,7 @@ def geocode_addresses_user(request):
 def geocode_user_address(request):
     if request.method == "POST":
         address = request.POST.get("address")
-        access_token ='pk.eyJ1IjoiZXhvMzAiLCJhIjoiY2xrY3N4Nzg2MGg2dTNmbzdxNHpmNmllNCJ9.3171IXDc3q17m_dIdf8-yQ'  # Replace this with your actual Mapbox access token
+        access_token ='sk.eyJ1IjoiZXhvMzAiLCJhIjoiY2xra21rMHJvMDM0NDNqbzVuNXQ5M3l4ciJ9.-g5BHTGRGDy1DT9wfrGfNQ'  # Replace this with your actual Mapbox access token
 
         latitude, longitude = get_coordinates_from_address(address, access_token)
 
