@@ -30,9 +30,10 @@ export class MapBoxComponent implements OnInit {
     this.map = new mapboxgl.Map({
       container: 'map', 
       style: 'mapbox://styles/mapbox/streets-v11', 
-      center: [-122.4194, 37.7749], 
+      center: [-78.644257, 35.787743], 
       zoom: 10
     });
+  
     console.log(this.map)
     // Fetch user addresses from the Django API
     this.userAddressService.getUserAddresses().subscribe(
