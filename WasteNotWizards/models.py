@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+
+# ----------------------------------------- USER MODEL -----------------------------------------
 
 
+# Custom User model extending Django's AbstractUser.
 class User(AbstractUser):
     STATE_CHOICES = [
         ("AK", "Alaska"),
@@ -58,6 +60,7 @@ class User(AbstractUser):
         ("WV", "West Virginia"),
         ("WY", "Wyoming"),
     ]
+
     is_provider = models.BooleanField(default=False)
     is_receiver = models.BooleanField(default=False)
 
@@ -74,6 +77,10 @@ class User(AbstractUser):
         return self.username
 
 
+# ----------------------------------------- PROVIDER MODEL -----------------------------------------
+
+
+# Model to represent providers.
 class Provider(models.Model):
     PROVIDER_CHOICES = [
         ("Business", "Business"),
@@ -86,7 +93,10 @@ class Provider(models.Model):
         return self.provider_type
 
 
-# Define the Post model
+# ----------------------------------------- POST MODEL -----------------------------------------
+
+
+# Model to represent posts.
 class Post(models.Model):
     posted_by_user = models.ForeignKey(
         to=User,
@@ -103,7 +113,10 @@ class Post(models.Model):
         return self.food_list
 
 
-# Define the Reservation model
+# ----------------------------------------- RESERVATION MODEL -----------------------------------------
+
+
+# Model to represent reservations.
 class Reservation(models.Model):
     receiver = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

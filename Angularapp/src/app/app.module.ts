@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { RecipientRegistrationComponent } from './recipient-registration/recipient-registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -11,6 +10,7 @@ import { MapBoxComponent } from './mapbox/mapbox.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ProviderPostComponent } from './provider-post/provider-post.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 // Define your routes
 const routes: Routes = [
@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'login/success', redirectTo: '/map', pathMatch: 'full'}, /*redirect to map after successful login*/
   { path: 'logout', component: LogoutComponent },
   { path: 'provider-post', component: ProviderPostComponent },
+  { path: 'reservation', component: ReservationComponent }, 
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // redirect to login if no path
 ];
 
@@ -32,7 +33,8 @@ const routes: Routes = [
     MapBoxComponent,
     LoginComponent,
     LogoutComponent,
-    ProviderPostComponent
+    ProviderPostComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,

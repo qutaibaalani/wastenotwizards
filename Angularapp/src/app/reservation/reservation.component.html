@@ -1,0 +1,16 @@
+<p>reservation works!</p>
+<div class="post-form-container">
+    <div class="form-header">
+    <div class="logo-container">
+    <img class="logo" src="assets/logo.png" alt="Logo">
+    </div>
+    <h2 class="form-title">Post Available Food</h2>
+    </div>
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+    <label class="form-label" for="foodName">Food Name</label>
+    <input class="form-input" type="text" formControlName="foodName" id="foodName">
+    </div>
+    <button class="form-button" type="submit">Submit</button>
+    </form>
+</div>

@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import (
+    IsAuthenticated,
+    IsAuthenticatedOrReadOnly,
+    IsAdminUser,
+)
 from .models import User, Provider, Post, Reservation
 from .serializers import (
     ProviderListSerializer,
@@ -29,37 +33,38 @@ def geocode_user_address(request):
             return JsonResponse({"status": "error", "message": "Invalid address or geocoding failed."})
 
 
+# ----------------------------------------- GENERAL VIEWS -----------------------------------
+
+
+# Home view for rendering the index.html template
 def home(request):
     return render(request, "index.html")
 
 
-# Create your views here.
+# ----------------------------------------- LOG IN VIEWS -----------------------------------
 
 
-# -----------------------------------------LOG IN VIEWS-----------------------------------
+# View for retrieving, updating, and deleting user profiles
 class ProfileViewSet(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = ProfileSerializer
     lookup_field = "username"
+    # Only authenticated users can access this view
+    permission_classes = [IsAuthenticated]
 
 
-# -----------------------------------------PROVIDER VIEWS-----------------------------------
+# ----------------------------------------- PROVIDER VIEWS -----------------------------------
 
 
+# View for listing and creating providers
 class ProviderListCreateView(generics.ListCreateAPIView):
     queryset = Provider.objects.all()
     serializer_class = ProviderListSerializer
+    # # Only admin users can create providers
+    permission_classes = [IsAdminUser]
 
 
-# class ProviderPostsView(generics.ListAPIView):
-#     queryset = Post.objects.all()
-
-#     def get_queryset(self):
-#         return self.request.user.posted_by_user
-
-#     serializer_class = PostListSerializer
-
-
+# View for listing posts related to a provider
 class ProviderPostsView(generics.ListAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
@@ -75,12 +80,12 @@ class ProviderPostsView(generics.ListAPIView):
             return Post.objects.none()
 
 
+# View for retrieving, updating, and deleting a specific post
 class OnePostView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
-
-    # def perform_create(self, serializer):
-    #     serializer.save(user=self.request.user)
+    # Authenticated users can update/delete, everyone can read
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 class postAddresses(generics.ListAPIView):
     queryset = Post.objects.all()
@@ -90,21 +95,27 @@ class postAddresses(generics.ListAPIView):
 # -----------------------------------------RECEIVER VIEWS----------------------------------
 
 
-# For listing instances of the `Post` model.
+# View for listing and creating all posts
 class AllPostView(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostListSerializer
+    # Authenticated users can create, everyone can read
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-# For listing reservations related to a `Receiver` instance.
+# View for listing reservations related to a receiver instance
 class ReceiverReservationListView(generics.ListAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
-    # The `lookup_field` is set to "receiver__user__username" to retrieve reservations based on the username of the associated receiver's user.
+    # The `lookup_field` is set to "username" to retrieve reservations based on the username of the associated receiver's user.
     lookup_field = "username"
+    # Only authenticated users can access this view
+    permission_classes = [IsAuthenticated]
 
 
-# For retrieving, updating, and deleting a specific reservation
+# View for retrieving, updating, and deleting a specific reservation
 class ReservationUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
+    # Only authenticated users can access this view
+    permission_classes = [IsAuthenticated]
