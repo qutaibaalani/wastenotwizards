@@ -1,14 +1,15 @@
 <nav class="bg-blue-500 p-6">
-    <a class="text-white hover:text-blue-300 mr-4" routerLink="/recipient-registration">Recipient Registration</a>
-    <a class="text-white hover:text-blue-300 mr-4" routerLink="/provider-registration">Provider Registration</a>
-    <a class="text-white hover:text-blue-300 mr-4" routerLink="/map">Map</a>
-    <a class="text-white hover:text-blue-300 mr-4" routerLink="/login">Login</a>
-    <a class="text-white hover:text-blue-300 mr-4" routerLink="/logout">Logout</a>
-    <a class="text-white hover:text-blue-300 mr-4" routerLink="/provider-post">Provider Post</a>
-    <a class="text-white hover:text-blue-300 mr-4" routerLink="/reservation">Reservation</a>
-
+    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/recipient-registration">Recipient Registration</button>
+        <button mat-menu-item routerLink="/provider-registration">Provider Registration</button>
+        <button mat-menu-item routerLink="/map">Map</button>
+        <button mat-menu-item routerLink="/login">Login</button>
+        <button mat-menu-item routerLink="/logout">Logout</button>
+        <button mat-menu-item routerLink="/provider-post">Provider Post</button>
+        <button mat-menu-item routerLink="/reservation">Reservation</button>
+    </mat-menu>
 </nav>
 
 <router-outlet></router-outlet>
-
 
