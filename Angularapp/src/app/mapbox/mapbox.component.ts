@@ -49,16 +49,10 @@ export class MapBoxComponent implements OnInit {
 
     const user = this.getUsernameFromLocalStorage()
     const token = this.getTokenFromLocalStorage()
-    console.log(token)
-
 
     this.addressService.getPostAddresses().subscribe(
-      (user_info) => {
-        console.log(user_info)
-        var user_coordinates = [user_info['longitude'], user_info['latitude']]
-        this.mapContainer = document.getElementById('map')
-        this.initMap(user_coordinates);
-
+      (post_info) => {
+        var post_coordinates = [post_info['longitude'], post_info['latitude']]
       },
       (error) => {
         console.error('Error fetching addresses:', error);
@@ -67,18 +61,21 @@ export class MapBoxComponent implements OnInit {
 
     this.addressService.getUserAddresses(user, token).subscribe(
       (user_info) => {
-        this.addresses = [user_info['longitude'], user_info['latitude']];
-        console.log(this.addresses)
+        console.log(user_info)
+        this.addresses = [user_info['user_longitude'], user_info['user_latitude']];
+        this.mapContainer = document.getElementById('map')
+        this.initMap(this.addresses);
       }
     )
   }
 
   private initMap(user_coordinates) {
+    console.log(user_coordinates[0], user_coordinates[1]);
     (mapboxgl as any).accessToken = 'pk.eyJ1IjoibWVhZ2FucnViaW5vIiwiYSI6ImNsa2QweHh0czBzbzMzanBoamxlNWYwN3EifQ.Z1_FaWyOr3_mK9ErWinJFw';
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/streets-v12',
-      center: [user_coordinates[0], user_coordinates[1]], // Set the initial center of the map
+      center: new mapboxgl.LngLat(user_coordinates[0], 35.830698), // Set the initial center of the map
       zoom: 10 // Set the initial zoom level of the map
     });
 

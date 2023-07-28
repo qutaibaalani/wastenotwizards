@@ -7,6 +7,7 @@ interface Address {
 }
 
 interface user_address {
+  username: string;
   user_latitude: number;
   user_longitude: number;
 }
@@ -26,6 +27,7 @@ export interface Post {
 
 export class PostAddressService {
   private apiUrl = 'https://waste-not-wizards.onrender.com/api/posts/geocode';
+  private userGeocode = 'https://waste-not-wizards.onrender.com/apiuser/geocode'
   private userLocationUrl = 'https://waste-not-wizards.onrender.com/api/profile/';
   private geocodeUrl = 'https://waste-not-wizards.onrender.com/api/geocode/';
   private postList = 'https://waste-not-wizards.onrender.com/api/posts';
@@ -33,16 +35,16 @@ export class PostAddressService {
   constructor(private http: HttpClient) {}
 
   getPostAddresses(): Observable<Address[]> {
-    return this.http.get<Address[]>(this.apiUrl);
+    return this.http.get<any>(this.apiUrl);
   }
 
   getUserAddresses(username, authToken): Observable<user_address[]> {
-
     const headers = {
-      Authorization: `Bearer ${authToken.auth_token}`,
+      Authorization: `Token ${authToken.auth_token}`,
     };
-    const fullUserLocationUrl = '' + this.userLocationUrl + username + "/"
-    return this.http.get<user_address[]>(fullUserLocationUrl, { headers })
+    const fullUserLocationUrl = this.userLocationUrl + username;
+    this.http.get<user_address>(this.userGeocode)
+    return this.http.get<any>(fullUserLocationUrl, { headers })
 }
 
 
