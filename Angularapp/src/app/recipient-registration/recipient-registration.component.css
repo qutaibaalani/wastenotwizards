@@ -1,5 +1,9 @@
 body {
-    font-family: Georgia, serif;
+    font-family: 'Roboto', sans-serif;
+}
+
+.h-screen {
+    height: 100vh;
 }
 
 .flex {
@@ -9,79 +13,44 @@ body {
     align-items: center;
 }
 
-.h-screen {
-    height: 100vh;
-}
-
 .registration-form {
-    max-width: 32rem;
-    background-color: #F2F1F7;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
     padding: 2rem;
-    margin-top: 2in;  
-    margin-bottom: 2in; 
-    overflow-y: auto;  /* makes it scrollable*/
-}
-
-.form-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.form-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #6B638F;
+    margin: 2rem auto;
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
 }
 
 .logo-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 2rem;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    height: 150px;
 }
 
 .logo {
-    width: 100px;
-    height: auto;
+    max-width: 100px;
+    max-height: 150px;
 }
 
 .form-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -50px;
+    height: 90%;
+    overflow: auto;
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
+.full-width-input {
+  width: 100%;
 }
 
-.form-label {
-    font-size: 0.875rem;
-    font-weight: bold;
-    color: #A09BA3;
-    margin-bottom: 0.5rem;
-}
-
-.form-input {
-    width: 100%;
-    appearance: none;
-    border: 1px solid #D8D4E0;
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-}
-
-.form-button {
-    background-color: #DAAE87;
-    color: #FFFFFF;
-    font-weight: bold;
-    font-size: 0.875rem;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    border: none;
-    outline: none;
-    cursor: pointer;
-}
-
-.form-button:hover {
-    background-color: #C99C78;
+.submit-button {
+  display: block;
+  margin: 0 auto;
 }

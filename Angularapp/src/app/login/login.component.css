@@ -1,154 +1,43 @@
 body {
-    font-family: Georgia, serif;
+    font-family: 'Roboto', sans-serif;
 }
 
-.flex {
+.container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-.h-screen {
+    position: relative;
     height: 100vh;
 }
 
+.floating-card {
+    width: 520px; /* make it bigger than the login form */
+    height: 600px; 
+    position: absolute;
+    background: #6b04b5; 
+    z-index: 1;
+    transform: rotate(-5deg);
+}
+
 .login-form {
-    max-width: 32rem;
-    background-color: #F2F1F7;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    margin-top: 2in;
-    margin-bottom: 2in;
-    overflow-y: auto; /* makes it scrollable */
-}
-
-.form-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.form-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #6B638F;
-}
-
-.logo-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-}
-
-.logo {
-    width: 100px;
-    height: auto;
-}
-
-.form-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-label {
-    font-size: 0.875rem;
-    font-weight: bold;
-    color: #A09BA3;
-    margin-bottom: 0.5rem;
-}
-
-.form-input {
     width: 100%;
-    appearance: none;
-    border: 1px solid #D8D4E0;
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-}
-
-.form-button {
-    background-color: #DAAE87;
-    color: #FFFFFF;
-    font-weight: bold;
-    font-size: 0.875rem;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
-    border: none;
-    outline: none;
-    cursor: pointer;
-}
-
-.form-button:hover {
-    background-color: #C99C78;
-}
-
-/* Spinner styles */
-.magic-wand-spinner {
+    max-width: 500px;
     position: relative;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
+    padding: 20px;
+    background: #FFFFFF;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    z-index: 2;
 }
 
-.stick {
+.spinner-container {
     position: absolute;
-    bottom: 0;
-    width: 10px;
-    height: 60%;
-    background: brown;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.star {
-    position: absolute;
-    width: 100%;
-    height: 40%;
-    background: yellow;
-    clip-path: polygon(
-        50% 0%, 61% 35%, 98% 35%, 68% 57%,
-        79% 91%, 50% 70%, 21% 91%, 32% 57%,
-        2% 35%, 39% 35%
-    );
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(1turn);
-    }
-}
-
-
-.absolute {
-    position: absolute;
-}
-
-.inset-0 {
     top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
-}
-
-.flex {
+    width: 100%;
+    height: 100%;
     display: flex;
-}
-
-.items-center {
-    align-items: center;
-}
-
-.justify-center {
     justify-content: center;
-}
-
-.bg-black {
-    background-color: rgba(0, 0, 0, 0.6); 
+    align-items: center;
+    background-color: rgba(255,255,255,0.7); 
+    z-index: 3;
 }

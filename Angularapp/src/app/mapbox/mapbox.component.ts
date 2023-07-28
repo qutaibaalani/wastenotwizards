@@ -23,6 +23,7 @@ export interface post_address {
 export class MapBoxComponent implements OnInit {
   private map: mapboxgl.Map;
   private mapContainer: HTMLElement;
+
   private user_address: Address[]; 
   private coordinates: any;
 
@@ -93,10 +94,9 @@ export class MapBoxComponent implements OnInit {
       console.log(long, lat)
       new mapboxgl.Marker()
         .setLngLat([long, lat])
+
         .addTo(this.map);
     });
   } else {console.log("user_coordinates")}
   }
-
 }
-

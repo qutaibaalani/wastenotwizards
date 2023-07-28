@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';  // Import Router
+import { MatSnackBar } from '@angular/material/snack-bar'; // Import MatSnackBar
 
 @Component({
   selector: 'app-recipient-registration',
@@ -10,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class RecipientRegistrationComponent implements OnInit {
   recipientForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private _snackBar: MatSnackBar) { }  // Inject MatSnackBar
 
   ngOnInit() {
     this.recipientForm = this.fb.group({
@@ -32,7 +34,13 @@ export class RecipientRegistrationComponent implements OnInit {
       this.http.post('https://waste-not-wizards.onrender.com/auth/users/', formData, {
         headers: {'Content-Type': 'application/json'}
       }).subscribe(
-        response => console.log('Success!', response),
+        response => {
+          console.log('Success!', response);
+          this._snackBar.open('Thank you for registering!', 'Close', { // Show snack bar
+            duration: 3000,
+          });
+          this.router.navigate(['/login']);  // Redirect to login page
+        },
         error => console.error('Error!', error)
       );
     }

@@ -1,53 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="recipient-registration.component.css">
-  <title>Registration Form</title>
-  <style>
-    .logo {
-      width: 100px;
-    }
-  </style>
-</head>
-<body>
-  <div class="flex justify-center items-center h-screen">
-    <div class="registration-form">
-      <div class="form-header">
-        <h2 class="form-title">Recipient Registration Form</h2>
-      </div>
-      <div class="logo-container">
-        <img src="https://i.postimg.cc/RF13Crr7/Logo-WNW.png" alt="Logo" class="logo">
-      </div>
+<div fxLayout="column" fxLayoutAlign="center center" class="container">
+    <mat-card class="mat-elevation-z8">
+      <mat-card-header>
+        <mat-card-title>
+          <div class="logo-container">
+            <img src="https://i.postimg.cc/RF13Crr7/Logo-WNW.png" alt="Logo" class="logo">
+          </div>
+        </mat-card-title>
+      </mat-card-header>
       <form [formGroup]="recipientForm" (ngSubmit)="onSubmit()" class="form-container">
-        <div class="form-group">
-          <label for="recipient-username" class="form-label">Username</label>
-          <input id="recipient-username" type="text" formControlName="username" class="form-input">
-        </div>
-        <div class="form-group">
-          <label for="recipient-address" class="form-label">Address</label>
-          <input id="recipient-address" type="text" formControlName="address" class="form-input">
-        </div>
-        <div class="form-group">
-          <label for="recipient-zipcode" class="form-label">Zip Code</label>
-          <input id="recipient-zipcode" type="text" formControlName="zipcode" class="form-input">
-        </div>
-        <div class="form-group">
-          <label for="recipient-email" class="form-label">Email</label>
-          <input id="recipient-email" type="email" formControlName="email" class="form-input">
-        </div>
-        <div class="form-group">
-          <label for="recipient-phone" class="form-label">Phone</label>
-          <input id="recipient-phone" type="tel" formControlName="phone" class="form-input">
-        </div>
-        <div class="form-group">
-          <label for="recipient-password" class="form-label">Password</label>
-          <input id="recipient-password" type="password" formControlName="password" class="form-input">
-        </div>
-        <button type="submit" class="form-button">Register</button>
+        <mat-card-content>
+          <h2 class="mat-headline">Recipient Registration Form</h2> <!-- Form title -->
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="address">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Zip Code</mat-label>
+            <input matInput formControlName="zipcode">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" type="submit" class="submit-button">Register</button>
+        </mat-card-actions>
       </form>
-    </div>
+    </mat-card>
   </div>
-</body>
-</html>
+  

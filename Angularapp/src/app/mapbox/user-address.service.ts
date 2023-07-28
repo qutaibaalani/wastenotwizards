@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+
 interface Address {
   latitude: number;
   longitude: number;
@@ -22,18 +23,22 @@ export interface Post {
   longitude: number;
 }
 
+
 @Injectable({
   providedIn: 'root',
 })
+
 
 export class PostAddressService {
   private apiUrl = 'https://waste-not-wizards.onrender.com/api/posts/geocode';
   private userGeocode = 'https://waste-not-wizards.onrender.com/apiuser/geocode'
   private userLocationUrl = 'https://waste-not-wizards.onrender.com/api/profile/';
+
   private geocodeUrl = 'https://waste-not-wizards.onrender.com/api/geocode/';
   private postList = 'https://waste-not-wizards.onrender.com/api/posts';
 
   constructor(private http: HttpClient) {}
+
 
   getPostAddresses(): Observable<Address[]> {
     this.http.get<Address[]>(this.apiUrl);
@@ -47,6 +52,7 @@ export class PostAddressService {
     const fullUserLocationUrl = this.userLocationUrl + username;
     this.http.get<user_address[]>(this.userGeocode)
     return this.http.get<user_address[]>(fullUserLocationUrl, { headers })
+
 }
 
 

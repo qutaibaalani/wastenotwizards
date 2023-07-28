@@ -11,9 +11,19 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ProviderPostComponent } from './provider-post/provider-post.component';
 import { ReservationComponent } from './reservation/reservation.component';
-import { PostListComponent } from './post-list/post-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu'; 
+import { MatToolbarModule } from '@angular/material/toolbar'; 
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-// Define your routes
+
 const routes: Routes = [
   { path: 'recipient-registration', component: RecipientRegistrationComponent },
   { path: 'provider-registration', component: ProviderRegistrationComponent },
@@ -42,7 +52,18 @@ const routes: Routes = [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule, 
-    RouterModule.forRoot(routes)  
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatSnackBarModule,
+    MatMenuModule, 
+    MatToolbarModule, 
+    MatDividerModule,
+    MatIconModule,
+    MatProgressSpinnerModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

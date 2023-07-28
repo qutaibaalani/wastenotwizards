@@ -36,6 +36,7 @@ def geocode_addresses_post(request):
 @csrf_exempt
 def geocode_addresses_user(request):
     users = User.objects.all()
+
     permission_classes = [IsAuthenticated]
     latitude, longitude = geocode_address(request.user.address)
     request.user.user_latitude = latitude

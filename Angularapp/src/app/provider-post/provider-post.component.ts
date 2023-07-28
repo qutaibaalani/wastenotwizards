@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -8,30 +8,36 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./provider-post.component.css']
 })
 export class ProviderPostComponent implements OnInit {
+  postForm: FormGroup;
 
-  postForm = new FormGroup({
-    foodName: new FormControl('', Validators.required),
-    foodDescription: new FormControl('', Validators.required),
-    quantity: new FormControl('', Validators.required),
-    pickupLocation: new FormControl('', Validators.required),
-    expirationDate: new FormControl('', Validators.required)
-  });
-
-  constructor(private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.postForm = this.fb.group({
+      posted_by_user: ['', Validators.required],
+      food_list: ['', Validators.required],
+      location: ['', Validators.required],
+      monetary_value: ['', Validators.required],
+      address: ['', Validators.required] // Add the "address" field
+    });
   }
 
   onSubmit(): void {
     if (this.postForm.valid) {
       const token = localStorage.getItem('auth_token');
-      this.http.post('https://waste-not-wizards.onrender.com/api/posts', this.postForm.value, {
+      const postData = this.postForm.value;
+
+      this.http.post('https://waste-not-wizards.onrender.com/api/posts', postData, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Token ${token}`
         }
       }).subscribe(
-        res => console.log(res),
+        res => {
+          console.log(res);
+          // Clear the form after successful submission
+          this.postForm.reset();
+        },
         error => console.log('Error!', error)
       );
     }
