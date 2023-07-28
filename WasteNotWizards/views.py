@@ -22,24 +22,25 @@ from .models import User, Post
 @csrf_exempt
 def geocode_addresses_post(request):
     posts = Post.objects.all()
+    pins = []
 
     for post in posts:
         latitude, longitude = geocode_address(post.address)
         post.latitude = latitude
         post.longitude = longitude
+        pins.append([longitude, latitude])
         post.save()
 
-    return JsonResponse({"status": "success", "latitude": latitude, "longitude": longitude})
+    return JsonResponse({"status": "success", "pins": pins})
 
 @csrf_exempt
 def geocode_addresses_user(request):
     users = User.objects.all()
-
-    for user in users:
-        latitude, longitude = geocode_address(user.address)
-        user.user_latitude = latitude
-        user.user_longitude = longitude
-        user.save()
+    permission_classes = [IsAuthenticated]
+    latitude, longitude = geocode_address(request.user.address)
+    request.user.user_latitude = latitude
+    request.user.user_longitude = longitude
+    request.user.save()
 
     return JsonResponse({"status": "success", "latitude": latitude, "longitude": longitude})
 

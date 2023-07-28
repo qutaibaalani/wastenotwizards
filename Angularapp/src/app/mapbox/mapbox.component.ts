@@ -2,13 +2,15 @@
 import { Component, OnInit } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { PostAddressService } from './user-address.service';
+import { HttpClient } from '@angular/common/http';
+//import { ClosestPostsComponent, Post } from './post-list.component'; // Adjust the import path based on your project structure
 
 
-export interface PostAddress {
-  id: number;
-  address: string;
+export interface Address {
   latitude: number;
   longitude: number;
+  userLat: number;
+  userLong: number;
 }
 
 @Component({
@@ -19,43 +21,76 @@ export interface PostAddress {
 export class MapBoxComponent implements OnInit {
   private map: mapboxgl.Map;
   private mapContainer: HTMLElement;
-  private addresses: PostAddress[]; // Replace 'any' with your specific address data type
+  private addresses: Address[]; 
 
   constructor(private addressService: PostAddressService) {}
 
+
+  getUsernameFromLocalStorage(): void {
+    const storedData = localStorage.getItem('username');
+    if (storedData) {
+      const data = JSON.parse(storedData);
+      return data
+    }
+  }
+
+  getTokenFromLocalStorage(): void {
+    const storedData = localStorage.getItem('token')
+    if (storedData){
+      const data = JSON.parse(storedData)
+      return data
+    }else {
+      return undefined
+    }
+  }
+
+
   ngOnInit() {
-    setTimeout(() => {
+
+    const user = this.getUsernameFromLocalStorage()
+    const token = this.getTokenFromLocalStorage()
+    console.log(token)
+
+
     this.addressService.getPostAddresses().subscribe(
-      (data) => {
-        this.addresses = data;
+      (user_info) => {
+        console.log(user_info)
+        var user_coordinates = [user_info['longitude'], user_info['latitude']]
         this.mapContainer = document.getElementById('map')
-        this.initMap();
+        this.initMap(user_coordinates);
 
       },
       (error) => {
         console.error('Error fetching addresses:', error);
       }
     );
-  }, 2000);
+
+    this.addressService.getUserAddresses(user, token).subscribe(
+      (user_info) => {
+        this.addresses = [user_info['longitude'], user_info['latitude']];
+        console.log(this.addresses)
+      }
+    )
   }
 
-  private initMap() {
-    (mapboxgl as any).accessToken = 'sk.eyJ1IjoiZXhvMzAiLCJhIjoiY2xra21rMHJvMDM0NDNqbzVuNXQ5M3l4ciJ9.-g5BHTGRGDy1DT9wfrGfNQ';
+  private initMap(user_coordinates) {
+    (mapboxgl as any).accessToken = 'pk.eyJ1IjoibWVhZ2FucnViaW5vIiwiYSI6ImNsa2QweHh0czBzbzMzanBoamxlNWYwN3EifQ.Z1_FaWyOr3_mK9ErWinJFw';
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/streets-v12',
-      center: [43.02157, -74.10025], // Set the initial center of the map
+      center: [user_coordinates[0], user_coordinates[1]], // Set the initial center of the map
       zoom: 10 // Set the initial zoom level of the map
     });
-  
 
+    if (this.addresses && Array.isArray(this.addresses)){
+    this.addresses.forEach((user_arr) => {
 
-    // Add map markers based on addresses
-    this.addresses.forEach((address) => {
-      const { longitude, latitude } = address;
       new mapboxgl.Marker()
-        .setLngLat([longitude, latitude])
+        .setLngLat([user_arr[0], user_arr[1]])
         .addTo(this.map);
     });
+  } else {console.log(user_coordinates)}
   }
+
 }
+
