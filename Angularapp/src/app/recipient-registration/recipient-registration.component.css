@@ -45,3 +45,12 @@ body {
     height: 90%;
     overflow: auto;
 }
+
+.full-width-input {
+  width: 100%;
+}
+
+.submit-button {
+  display: block;
+  margin: 0 auto;
+}

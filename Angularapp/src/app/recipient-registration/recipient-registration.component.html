@@ -1,52 +1,44 @@
 <div fxLayout="column" fxLayoutAlign="center center" class="container">
-    <div class="logo-container">
-      <img src="https://i.postimg.cc/RF13Crr7/Logo-WNW.png" alt="Logo" class="logo">
-    </div>
-  
-    <form [formGroup]="recipientForm" (ngSubmit)="onSubmit()" class="form-container">
-      <mat-card class="registration-form">
-        <mat-card-title style="text-align: center;" class="form-header">Recipient Registration Form</mat-card-title>
+    <mat-card class="mat-elevation-z8">
+      <mat-card-header>
+        <mat-card-title>
+          <div class="logo-container">
+            <img src="https://i.postimg.cc/RF13Crr7/Logo-WNW.png" alt="Logo" class="logo">
+          </div>
+        </mat-card-title>
+      </mat-card-header>
+      <form [formGroup]="recipientForm" (ngSubmit)="onSubmit()" class="form-container">
         <mat-card-content>
-          <div>
-            <mat-form-field appearance="outline">
-              <mat-label>Username</mat-label>
-              <input matInput formControlName="username">
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field appearance="outline">
-              <mat-label>Address</mat-label>
-              <input matInput formControlName="address">
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field appearance="outline">
-              <mat-label>Zip Code</mat-label>
-              <input matInput formControlName="zipcode">
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field appearance="outline">
-              <mat-label>Email</mat-label>
-              <input matInput formControlName="email">
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field appearance="outline">
-              <mat-label>Phone</mat-label>
-              <input matInput formControlName="phone">
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field appearance="outline">
-              <mat-label>Password</mat-label>
-              <input matInput type="password" formControlName="password">
-            </mat-form-field>
-          </div>
+          <h2 class="mat-headline">Recipient Registration Form</h2> <!-- Form title -->
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="address">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Zip Code</mat-label>
+            <input matInput formControlName="zipcode">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="full-width-input">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+          </mat-form-field>
         </mat-card-content>
-        <mat-card-actions style="display: flex; justify-content: center;">
-          <button mat-raised-button color="primary" type="submit">Register</button>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" type="submit" class="submit-button">Register</button>
         </mat-card-actions>
-      </mat-card>
-    </form>
+      </form>
+    </mat-card>
   </div>
+  

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  loading: boolean = false;
+  loading: boolean = false; // Initialize as false so spinner does not show on load
 
   constructor(
     private fb: FormBuilder,
@@ -26,8 +26,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loading = true;
     if (this.loginForm.valid) {
+      this.loading = true; // Set loading to true user presses button
       const loginData = this.loginForm.value;
       this.http
         .post('https://waste-not-wizards.onrender.com/auth/token/login', loginData, {
@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
         .subscribe({
           next: (response: any) => {
             console.log('Success!', response);
-            this.loading = false;
             alert('Welcome, ' + loginData.username + '!');
 
             // Store the token in local storage
@@ -46,7 +45,9 @@ export class LoginComponent implements OnInit {
           },
           error: (error) => {
             console.error('Error!', error);
-            this.loading = false;
+          },
+          complete: () => {
+            this.loading = false; // Set loading to false when req done
           }
         });
     }
