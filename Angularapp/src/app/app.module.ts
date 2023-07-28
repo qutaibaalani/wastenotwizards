@@ -23,6 +23,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+
 const routes: Routes = [
   { path: 'recipient-registration', component: RecipientRegistrationComponent },
   { path: 'provider-registration', component: ProviderRegistrationComponent },
@@ -44,7 +45,8 @@ const routes: Routes = [
     LoginComponent,
     LogoutComponent,
     ProviderPostComponent,
-    ReservationComponent
+    ReservationComponent,
+    PostListComponent
   ],
   imports: [
     BrowserModule,
