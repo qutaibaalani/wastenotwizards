@@ -7,10 +7,12 @@ import { HttpClient } from '@angular/common/http';
 
 
 export interface Address {
-  latitude: number;
-  longitude: number;
-  userLat: number;
-  userLong: number;
+  user_longitude: number;
+  user_latitude: number;
+}
+
+export interface post_address {
+  pins: Array<any>
 }
 
 @Component({
@@ -21,7 +23,8 @@ export interface Address {
 export class MapBoxComponent implements OnInit {
   private map: mapboxgl.Map;
   private mapContainer: HTMLElement;
-  private addresses: Address[]; 
+  private user_address: Address[]; 
+  private coordinates: any;
 
   constructor(private addressService: PostAddressService) {}
 
@@ -46,47 +49,53 @@ export class MapBoxComponent implements OnInit {
 
 
   ngOnInit() {
-
     const user = this.getUsernameFromLocalStorage()
     const token = this.getTokenFromLocalStorage()
 
+    this.addressService.getUserAddresses(user, token).subscribe(
+      (user_info) => {
+        console.log(user_info)
+        this.user_address = [user_info['user_longitude'], user_info['user_latitude']]
+      }
+    )
+
     this.addressService.getPostAddresses().subscribe(
       (post_info) => {
-        var post_coordinates = [post_info['longitude'], post_info['latitude']]
+        console.log(post_info)
+        this.coordinates = []
+        post_info.forEach((pin)=> {
+          this.coordinates.push([pin.longitude, pin.latitude])
+        });
+
+        this.mapContainer = document.getElementById('map')
+        this.initMap(this.user_address, this.coordinates)
       },
       (error) => {
         console.error('Error fetching addresses:', error);
       }
     );
-
-    this.addressService.getUserAddresses(user, token).subscribe(
-      (user_info) => {
-        console.log(user_info)
-        this.addresses = [user_info['user_longitude'], user_info['user_latitude']];
-        this.mapContainer = document.getElementById('map')
-        this.initMap(this.addresses);
-      }
-    )
   }
 
-  private initMap(user_coordinates) {
-    console.log(user_coordinates[0], user_coordinates[1]);
+  private initMap(user_coordinates, pin_coordinates) {
+    console.log(pin_coordinates);
     (mapboxgl as any).accessToken = 'pk.eyJ1IjoibWVhZ2FucnViaW5vIiwiYSI6ImNsa2QweHh0czBzbzMzanBoamxlNWYwN3EifQ.Z1_FaWyOr3_mK9ErWinJFw';
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
       style: 'mapbox://styles/mapbox/streets-v12',
-      center: new mapboxgl.LngLat(user_coordinates[0], 35.830698), // Set the initial center of the map
+      center: new mapboxgl.LngLat(user_coordinates[0], user_coordinates[1]), // Set the initial center of the map
       zoom: 10 // Set the initial zoom level of the map
     });
 
-    if (this.addresses && Array.isArray(this.addresses)){
-    this.addresses.forEach((user_arr) => {
-
+    if (pin_coordinates && Array.isArray(pin_coordinates)){
+    pin_coordinates.forEach((pin_arr) => {
+      var long = pin_arr[0]
+      var lat = pin_arr[1]
+      console.log(long, lat)
       new mapboxgl.Marker()
-        .setLngLat([user_arr[0], user_arr[1]])
+        .setLngLat([long, lat])
         .addTo(this.map);
     });
-  } else {console.log(user_coordinates)}
+  } else {console.log("user_coordinates")}
   }
 
 }

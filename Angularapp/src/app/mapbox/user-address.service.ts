@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 interface Address {
-  pins: object
+  latitude: number;
+  longitude: number;
 }
 
 interface user_address {
@@ -35,7 +36,8 @@ export class PostAddressService {
   constructor(private http: HttpClient) {}
 
   getPostAddresses(): Observable<Address[]> {
-    return this.http.get<any>(this.apiUrl);
+    this.http.get<Address[]>(this.apiUrl);
+    return this.http.get<Address[]>(this.postList)
   }
 
   getUserAddresses(username, authToken): Observable<user_address[]> {
@@ -43,8 +45,8 @@ export class PostAddressService {
       Authorization: `Token ${authToken.auth_token}`,
     };
     const fullUserLocationUrl = this.userLocationUrl + username;
-    this.http.get<user_address>(this.userGeocode)
-    return this.http.get<any>(fullUserLocationUrl, { headers })
+    this.http.get<user_address[]>(this.userGeocode)
+    return this.http.get<user_address[]>(fullUserLocationUrl, { headers })
 }
 
 
