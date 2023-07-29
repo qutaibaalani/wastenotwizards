@@ -55,30 +55,30 @@ export class MapBoxComponent implements OnInit {
 
     this.addressService.getUserAddresses(user, token).subscribe(
       (user_info) => {
+        console.log(user_info)
         this.user_address = [user_info['user_longitude'], user_info['user_latitude']]
       }
     )
 
     this.addressService.getPostAddresses().subscribe(
       (post_info) => {
+        console.log(post_info)
         this.coordinates = []
         post_info.forEach((pin)=> {
           this.coordinates.push([pin.longitude, pin.latitude])
         });
+
+        this.mapContainer = document.getElementById('map')
+        this.initMap(this.user_address, this.coordinates)
       },
       (error) => {
         console.error('Error fetching addresses:', error);
       }
     );
-    this.mapContainer = document.getElementById('map')
-
-    setTimeout(() => {
-      this.initMap(this.user_address, this.coordinates)
-    }, 1000)
   }
 
   private initMap(user_coordinates, pin_coordinates) {
-    console.log(user_coordinates);
+    console.log(pin_coordinates);
     (mapboxgl as any).accessToken = 'pk.eyJ1IjoibWVhZ2FucnViaW5vIiwiYSI6ImNsa2QweHh0czBzbzMzanBoamxlNWYwN3EifQ.Z1_FaWyOr3_mK9ErWinJFw';
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -91,8 +91,10 @@ export class MapBoxComponent implements OnInit {
     pin_coordinates.forEach((pin_arr) => {
       var long = pin_arr[0]
       var lat = pin_arr[1]
+      console.log(long, lat)
       new mapboxgl.Marker()
         .setLngLat([long, lat])
+
         .addTo(this.map);
     });
   } else {console.log("user_coordinates")}
