@@ -54,9 +54,4 @@ export class PostAddressService {
     return this.http.get<user_address[]>(fullUserLocationUrl, { headers })
 
 }
-
-
-  //geocodeAddress(address: string): Observable<any> {
-    //return this.http.post<any>(this.geocodeUrl, { address });
-  //}
 }
