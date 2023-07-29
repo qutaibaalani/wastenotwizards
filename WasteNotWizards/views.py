@@ -24,7 +24,7 @@ from django.contrib.gis.measure import Distance as DistanceFunc
 def get_nearby_coordinates(request):
     user_latitude = float(request.GET.get('latitude', 0))
     user_longitude = float(request.GET.get('longitude', 0))
-    radius = 100 # 0.1 degrees as an example radius, adjust as needed
+    radius = 10 # 0.1 degrees as an example radius, adjust as needed
 
     # Calculate the bounding box for the search area
     min_latitude = user_latitude - radius
@@ -41,6 +41,8 @@ def get_nearby_coordinates(request):
     data = [{
         'id': coord.id,
         'foodlist': coord.food_list,
+        'user_long': user_longitude,
+        'user_lat': user_latitude,
         'latitude': coord.latitude,
         'longitude': coord.longitude,
     } for coord in nearby_coordinates]
