@@ -1,4 +1,3 @@
-// map.component.ts
 import { Component, OnInit, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { PostAddressService } from './user-address.service';
