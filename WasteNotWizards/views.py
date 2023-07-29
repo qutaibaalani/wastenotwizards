@@ -49,6 +49,33 @@ def get_nearby_coordinates(request):
 
     return JsonResponse(data, safe=False)
 
+@csrf_exempt
+def get_nearby_coordinates(request):
+    user_latitude = float(request.GET.get('latitude', 0))
+    user_longitude = float(request.GET.get('longitude', 0))
+    radius = 100 # 0.1 degrees as an example radius, adjust as needed
+
+    # Calculate the bounding box for the search area
+    min_latitude = user_latitude - radius
+    max_latitude = user_latitude + radius
+    min_longitude = user_longitude - radius
+    max_longitude = user_longitude + radius
+
+    # Filter coordinates within the bounding box
+    nearby_coordinates = Post.objects.filter(
+        latitude__range=(min_latitude, max_latitude),
+        longitude__range=(min_longitude, max_longitude)
+    )
+
+    data = [{
+        'id': coord.id,
+        'foodlist': coord.food_list,
+        'latitude': coord.latitude,
+        'longitude': coord.longitude,
+    } for coord in nearby_coordinates]
+
+    return JsonResponse(data, safe=False)
+
 
 @csrf_exempt
 def geocode_addresses_post(request):
