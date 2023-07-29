@@ -29,7 +29,12 @@ export class MapBoxComponent implements OnInit {
       (data) => {
         this.addresses = data;
         this.mapContainer = document.getElementById('map')
-        this.initMap();
+        setTimeout(() => {
+          this.initMap(this.user_address, this.coordinates)
+        })
+      },
+      (error) => {
+        console.error('Error fetching addresses:', error);
       }
     );
   }, 2000);
