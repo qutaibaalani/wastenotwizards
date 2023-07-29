@@ -1,16 +1,21 @@
-<p>reservation works!</p>
-<div class="post-form-container">
-    <div class="form-header">
-    <div class="logo-container">
-    <img class="logo" src="assets/logo.png" alt="Logo">
-    </div>
-    <h2 class="form-title">Post Available Food</h2>
-    </div>
-    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-    <label class="form-label" for="foodName">Food Name</label>
-    <input class="form-input" type="text" formControlName="foodName" id="foodName">
-    </div>
-    <button class="form-button" type="submit">Submit</button>
-    </form>
+<div class="container">
+    <div class="floating-card"></div>
+    <mat-card class="mat-elevation-z8 post-form">
+        <mat-card-header>
+            <mat-card-title class="form-title">Post Available Food</mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="form-container">
+            <mat-card-content>
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <input matInput placeholder="Food Name" formControlName="foodName">
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" type="submit" class="submit-button">Submit</button>
+            </mat-card-actions>
+            <div class="spinner-container" *ngIf="loading">
+                <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+            </div>
+        </form>
+    </mat-card>
 </div>
