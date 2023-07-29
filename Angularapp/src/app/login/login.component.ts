@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
             alert('Welcome, ' + loginData.username + '!');
 
             // Store the token in local storage
+            
             localStorage.setItem('auth_token', response.auth_token);
 
             setTimeout(() => this.router.navigate(['/map']), 500);
@@ -53,3 +54,4 @@ export class LoginComponent implements OnInit {
     }
   }
 }
+
