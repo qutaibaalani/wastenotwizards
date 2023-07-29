@@ -1,10 +1,13 @@
 // map.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { PostAddressService } from './user-address.service';
 import { HttpClient } from '@angular/common/http';
-//import { ClosestPostsComponent, Post } from './post-list.component'; // Adjust the import path based on your project structure
+import { PostListComponent } from '../post-list/post-list.component'; // Adjust the import path based on your project structure
 
+export interface Post {
+  foodlist: string
+}
 
 export interface Address {
   user_longitude: number;
@@ -21,13 +24,17 @@ export interface post_address {
   styleUrls: ['./mapbox.component.css']
 })
 export class MapBoxComponent implements OnInit {
+  closestPosts: Post[] = [];
   private map: mapboxgl.Map;
   private mapContainer: HTMLElement;
 
   private user_address: Address[]; 
   private coordinates: any;
 
-  constructor(private addressService: PostAddressService) {}
+  constructor(private addressService: PostAddressService, 
+  private http: HttpClient,
+  private componentFactoryResolver: ComponentFactoryResolver,
+  private viewContainerRef: ViewContainerRef  ) {}
 
 
   getUsernameFromLocalStorage(): void {
@@ -74,8 +81,29 @@ export class MapBoxComponent implements OnInit {
 
     setTimeout(() => {
       this.initMap(this.user_address, this.coordinates)
+      this.fetchAndDisplayClosestPosts(this.user_address)
     }, 2000)
   }
+
+  private fetchAndDisplayClosestPosts(user_coor): void {
+    // Make an API request to your Django backend to fetch the closest posts.
+    // Replace 'your-api-endpoint' with the actual URL of your Django API endpoint.
+    this.http.get<Post[]>(`your-api-endpoint?latitude=${user_coor[1]}&longitude=${user_coor[0]}`)
+      .subscribe(
+        (data) => {
+          this.closestPosts = data.slice(0, 10); // Assuming the API returns the posts as an array.
+          // Create an instance of ClosestPostsComponent dynamically and pass the closest posts data.
+          const componentFactory = this.componentFactoryResolver.resolveComponentFactory(PostListComponent);
+          const componentRef = this.viewContainerRef.createComponent(componentFactory);
+          componentRef.instance.posts = this.closestPosts;
+        },
+        (error) => {
+          console.error('Error fetching closest posts:', error);
+        }
+      );
+  }
+
+
 
   private initMap(user_coordinates, pin_coordinates) {
     console.log(user_coordinates);

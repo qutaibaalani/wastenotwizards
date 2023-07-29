@@ -2,3 +2,16 @@
 <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.40.1/mapbox-gl.js"></script>
 
 <div id="map"></div>
+
+<div *ngIf="closestPosts.length > 0">
+    <h2>Closest Posts to You</h2>
+    <ul>
+      <li *ngFor="let post of closestPosts">
+        <strong>{{ post.foodlist }}</strong>
+        <!-- Display other post details as needed -->
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="closestPosts.length === 0">
+    <p>No posts found nearby.</p>
+  </div>
