@@ -88,7 +88,7 @@ export class MapBoxComponent implements OnInit {
   private fetchAndDisplayClosestPosts(user_coor): void {
     // Make an API request to your Django backend to fetch the closest posts.
     // Replace 'your-api-endpoint' with the actual URL of your Django API endpoint.
-    this.http.get<Post[]>(`your-api-endpoint?latitude=${user_coor[1]}&longitude=${user_coor[0]}`)
+    this.http.get<Post[]>(`https://waste-not-wizards.onrender.com/api/closePosts?latitude=${user_coor[1]}&longitude=${user_coor[0]}`)
       .subscribe(
         (data) => {
           this.closestPosts = data.slice(0, 10); // Assuming the API returns the posts as an array.

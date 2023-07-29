@@ -18,13 +18,13 @@ from .utils import get_coordinates_from_address, geocode_address
 from django.views.decorators.csrf import csrf_exempt
 from .models import User, Post
 from django.db.models import F
-from django.contrib.gis.measure import Distance
+from django.contrib.gis.measure import Distance as DistanceFunc
 
 @csrf_exempt
 def get_nearby_coordinates(request):
     user_latitude = float(request.GET.get('latitude', 0))
     user_longitude = float(request.GET.get('longitude', 0))
-    radius = 10
+    radius = 100 # 0.1 degrees as an example radius, adjust as needed
 
     # Calculate the bounding box for the search area
     min_latitude = user_latitude - radius
@@ -38,20 +38,11 @@ def get_nearby_coordinates(request):
         longitude__range=(min_longitude, max_longitude)
     )
 
-    # Calculate the distance between the user's location and each coordinate
-    # Note: Depending on your model structure, you might need to adjust the field names.
-    nearby_coordinates = nearby_coordinates.annotate(
-        distance=Distance('latitude_longitude', (user_latitude, user_longitude))
-    )
-
-    # Sort the coordinates by distance and limit to the first 10 closest ones
-    nearby_coordinates = nearby_coordinates.order_by('distance')[:10]
-
-    # Prepare the data for the JSON response
     data = [{
+        'id': coord.id,
+        'foodlist': coord.food_list,
         'latitude': coord.latitude,
         'longitude': coord.longitude,
-        'distance': coord.distance.m  # distance in meters
     } for coord in nearby_coordinates]
 
     return JsonResponse(data, safe=False)
