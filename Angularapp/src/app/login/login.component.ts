@@ -39,8 +39,7 @@ export class LoginComponent implements OnInit {
             alert('Welcome, ' + loginData.username + '!');
 
             // Store the token in local storage
-            localStorage.setItem("token", JSON.stringify(response))
-            localStorage.setItem("username", JSON.stringify(loginData.username))
+            
             localStorage.setItem('auth_token', response.auth_token);
 
             setTimeout(() => this.router.navigate(['/map']), 500);
