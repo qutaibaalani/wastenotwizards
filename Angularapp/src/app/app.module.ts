@@ -47,7 +47,7 @@ const routes: Routes = [
     LogoutComponent,
     ProviderPostComponent,
     ReservationComponent,
-    PostListComponent
+    PostListComponent,
     SplashScreenComponent
   ],
   imports: [
