@@ -30,5 +30,6 @@ urlpatterns = [
     path("geocode", views.geocode_user_address, name="geocode"),
     path("user/geocode", views.geocode_addresses_user, name="geocode_user"),
     path("posts/geocode", views.geocode_addresses_post, name="geocode_posts"),
-    path("post-addresses", views.postAddresses.as_view(), name="post-addresses")
+    path("post-addresses", views.postAddresses.as_view(), name="post-addresses"),
+    path("closePosts", views.get_nearby_coordinates, name="closePosts"),
 ]
