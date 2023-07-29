@@ -1,18 +1,16 @@
-<splash-screen></splash-screen>
-<div class="main-app-container">
-</div>
-<nav class="bg-blue-500 p-6">
+<mat-toolbar color="primary" fxLayoutAlign="space-between center">
     <button mat-button [matMenuTriggerFor]="menu">Menu</button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/recipient-registration">Recipient Registration</button>
-        <button mat-menu-item routerLink="/provider-registration">Provider Registration</button>
-        <button mat-menu-item routerLink="/map">Map</button>
-        <button mat-menu-item routerLink="/login">Login</button>
-        <button mat-menu-item routerLink="/logout">Logout</button>
-        <button mat-menu-item routerLink="/provider-post">Provider Post</button>
-        <button mat-menu-item routerLink="/reservation">Reservation</button>
+      <button mat-menu-item routerLink="/recipient-registration">Recipient Registration</button>
+      <button mat-menu-item routerLink="/provider-registration">Provider Registration</button>
+      <button mat-menu-item routerLink="/map">Map</button>
+      <button mat-menu-item routerLink="/login">Login</button>
+      <button mat-menu-item routerLink="/provider-post">Provider Post</button>
+      <button mat-menu-item routerLink="/reservation">Reservation</button>
     </mat-menu>
-</nav>
-
-<router-outlet></router-outlet>
-
+    <span>Waste Not Wizards</span>
+    <button mat-button routerLink="/logout">Logout</button>
+  </mat-toolbar>
+  
+  <router-outlet></router-outlet>
+  

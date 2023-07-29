@@ -24,6 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PostListComponent } from './post-list/post-list.component';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 const routes: Routes = [
   { path: 'recipient-registration', component: RecipientRegistrationComponent },
@@ -65,7 +67,8 @@ const routes: Routes = [
     MatToolbarModule, 
     MatDividerModule,
     MatIconModule,
-    MatProgressSpinnerModule 
+    MatProgressSpinnerModule,
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
