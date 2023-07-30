@@ -78,7 +78,7 @@ def get_nearby_coordinates(request):
 
 
 @csrf_exempt
-def geocode_addresses_post(request):
+def geocode_addresses_post():
     posts = Post.objects.all()
 
     for post in posts:
@@ -193,6 +193,10 @@ class AllPostView(generics.ListCreateAPIView):
     serializer_class = PostListSerializer
     # Authenticated users can create, everyone can read
     permission_classes = [IsAuthenticatedOrReadOnly]
+    def perform_create(self, serializer):
+        address = self.request.data.get('address')
+        latitude, longitude = geocode_address(address)
+        serializer.save(latitude=latitude, longitude=longitude)
 
 
 # View for listing reservations related to a receiver instance
