@@ -25,6 +25,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PostListComponent } from './post-list/post-list.component';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AuthService } from './auth.service';
+
 
 
 const routes: Routes = [
@@ -70,7 +72,9 @@ const routes: Routes = [
     MatProgressSpinnerModule,
     FlexLayoutModule,
   ],
-  providers: [],
+  providers: [
+    AuthService, // add AuthService to providers
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
