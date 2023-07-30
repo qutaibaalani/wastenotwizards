@@ -41,7 +41,7 @@ export class PostAddressService {
 
 
   getPostAddresses(): Observable<Address[]> {
-    this.http.get<Address[]>(this.apiUrl);
+    this.http.get(this.apiUrl);
     return this.http.get<Address[]>(this.postList)
   }
 
