@@ -46,8 +46,9 @@ export class PostAddressService {
   }
 
   getUserAddresses(username, authToken): Observable<user_address[]> {
+    console.log(username, authToken)
     const headers = {
-      Authorization: `Token ${authToken.auth_token}`,
+      Authorization: `Token ${authToken}`,
     };
     const fullUserLocationUrl = this.userLocationUrl + username;
     this.http.get<user_address[]>(this.userGeocode)

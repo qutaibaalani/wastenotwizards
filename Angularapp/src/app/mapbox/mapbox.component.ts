@@ -36,22 +36,14 @@ export class MapBoxComponent implements OnInit {
   private viewContainerRef: ViewContainerRef  ) {}
 
 
-  getUsernameFromLocalStorage(): void {
+  getUsernameFromLocalStorage() {
     const storedData = localStorage.getItem('username');
-    if (storedData) {
-      const data = JSON.parse(storedData);
-      return data
-    }
+    return storedData
   }
 
-  getTokenFromLocalStorage(): void {
-    const storedData = localStorage.getItem('token')
-    if (storedData){
-      const data = JSON.parse(storedData)
-      return data
-    }else {
-      return undefined
-    }
+  getTokenFromLocalStorage() {
+    const storedData = localStorage.getItem('auth_token')
+    return storedData
   }
 
 
@@ -77,7 +69,6 @@ export class MapBoxComponent implements OnInit {
       }
     );
     this.mapContainer = document.getElementById('map')
-
     setTimeout(() => {
       this.initMap(this.user_address, this.coordinates)
       this.fetchAndDisplayClosestPosts(this.user_address)
