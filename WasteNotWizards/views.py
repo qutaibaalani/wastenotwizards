@@ -104,6 +104,13 @@ def geocode_addresses_user(request):
 
 @csrf_exempt
 def geocode_user_address(request):
+    users = User.objects.all()
+
+    for user in users:
+        latitude, longitude = geocode_address(user.address)
+        user.user_latitude = latitude
+        user.user_longitude = longitude
+        user.save()
     if request.method == "POST":
         address = request.POST.get("address")
         access_token ='sk.eyJ1IjoiZXhvMzAiLCJhIjoiY2xra21rMHJvMDM0NDNqbzVuNXQ5M3l4ciJ9.-g5BHTGRGDy1DT9wfrGfNQ'  # Replace this with your actual Mapbox access token

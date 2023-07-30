@@ -40,8 +40,12 @@ export class PostAddressService {
   constructor(private http: HttpClient) {}
 
 
+  geocodeAddresses() {
+    return this.http.get(this.apiUrl)
+  }
+  
   getPostAddresses(): Observable<Address[]> {
-    this.http.get(this.apiUrl);
+    this.geocodeAddresses()
     return this.http.get<Address[]>(this.postList)
   }
 

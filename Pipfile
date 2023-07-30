@@ -15,6 +15,7 @@ django-spa = "*"
 djoser = "*"
 django-cors-headers = "*"
 requests = "*"
+sentry-sdk = "*"
 
 [dev-packages]
 

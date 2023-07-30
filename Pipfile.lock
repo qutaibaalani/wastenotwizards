@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ae0b48675909014caee45421675acbccde8fcfa61d6eb88da647fc8ba7d88c78"
+            "sha256": "f1ee5c7054da104f3f271d5eec3eae427a8abed960f7eaf7f7e370c9f90f8c9c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -434,6 +434,14 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==1.3.1"
+        },
+        "sentry-sdk": {
+            "hashes": [
+                "sha256:6bdb25bd9092478d3a817cb0d01fa99e296aea34d404eac3ca0037faa5c2aa0a",
+                "sha256:dcd88c68aa64dae715311b5ede6502fd684f70d00a7cd4858118f0ba3153a3ae"
+            ],
+            "index": "pypi",
+            "version": "==1.28.1"
         },
         "social-auth-app-django": {
             "hashes": [

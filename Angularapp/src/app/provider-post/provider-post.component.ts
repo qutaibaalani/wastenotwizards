@@ -16,7 +16,6 @@ export class ProviderPostComponent implements OnInit {
     this.postForm = this.fb.group({
       posted_by_user: ['', Validators.required],
       food_list: ['', Validators.required],
-      location: ['', Validators.required],
       monetary_value: ['', Validators.required],
       address: ['', Validators.required] // Add the "address" field
     });
