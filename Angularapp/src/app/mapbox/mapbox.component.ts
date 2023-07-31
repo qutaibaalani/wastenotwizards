@@ -28,6 +28,7 @@ export interface post_address {
 export class MapBoxComponent implements OnInit {
   loggers: any;
   closestPosts: Post[] = [];
+  reservedPosts: Post[] = [];
   thisUser: any;
 
 
@@ -83,6 +84,7 @@ export class MapBoxComponent implements OnInit {
     setTimeout(() => {
       this.initMap(this.user_address, this.coordinates)
       this.fetchAndDisplayClosestPosts(this.user_address)
+      this.fetchAndDisplayReservedPosts()
     }, 2000)
   }
 
@@ -91,7 +93,7 @@ export class MapBoxComponent implements OnInit {
       .subscribe(
         (data) => {
           this.closestPosts = data.slice(0, 10);
-          console.log(this.closestPosts) 
+          //console.log(this.closestPosts) 
       
         },
         (error) => {
@@ -100,12 +102,12 @@ export class MapBoxComponent implements OnInit {
       );
   }
 
-  private fetchAndDisplayReservedPosts(user_coor): void {
-    this.http.get<Post[]>(`https://waste-not-wizards.onrender.com/api/closePosts?latitude=${user_coor[1]}&longitude=${user_coor[0]}&reservation_status=Open`)
+  private fetchAndDisplayReservedPosts(): void {
+    this.http.get<Post[]>(`https://waste-not-wizards.onrender.com/api/reservedPosts?reserved_by=${this.thisUser}`)
       .subscribe(
         (data) => {
-          this.closestPosts = data.slice(0, 10);
-          console.log(this.closestPosts) 
+          this.reservedPosts = data
+          console.log(this.reservedPosts)
       
         },
         (error) => {
@@ -139,7 +141,7 @@ export class MapBoxComponent implements OnInit {
     let token = this.getTokenFromLocalStorage()
     let url = 'https://waste-not-wizards.onrender.com/api/posts/' + id + '/'
     let currentDateTime = this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss');
-    let data = {"reservation_status": "Closed", "reserved_by": this.thisUser, "reservation_time": currentDateTime}
+    let data = {"reservation_status": "Closed", "reserved_by": this.thisUser}
 
     this.http.patch(url, data, {
       headers: {

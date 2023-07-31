@@ -32,4 +32,5 @@ urlpatterns = [
     path("posts/geocode", views.geocode_addresses_post, name="geocode_posts"),
     path("post-addresses", views.postAddresses.as_view(), name="post-addresses"),
     path("closePosts", views.get_nearby_coordinates, name="closePosts"),
+    path("reservedPosts", views.get_reserved_posts, name="reserved_posts")
 ]
