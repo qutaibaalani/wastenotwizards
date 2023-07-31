@@ -22,9 +22,9 @@ export class AuthService {
   }
 
   redirectUser(user): void {
-    if (user.role === 'provider') {
+    if (user.is_provider) {
       this.router.navigate(['/provider-post']);
-    } else if (user.role === 'recipient') {
+    } else if (user.is_receiver) {
       this.router.navigate(['/map']);
     }
   }
