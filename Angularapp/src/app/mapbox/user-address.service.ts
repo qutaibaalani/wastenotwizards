@@ -15,8 +15,8 @@ interface user_address {
 }
 
 export interface Post {
-  posted_by_use: object;
-  food_lis: string;
+  posted_by_user: object;
+  food_list: string;
   monetary_value: number;
   address: string;
   latitude: number;
@@ -45,7 +45,6 @@ export class PostAddressService {
   }
   
   getPostAddresses(): Observable<Address[]> {
-    this.geocodeAddresses()
     return this.http.get<Address[]>(this.postList)
   }
 

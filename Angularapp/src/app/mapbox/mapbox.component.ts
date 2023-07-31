@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { PostListComponent } from '../post-list/post-list.component'; // Adjust the import path based on your project structure
 
 export interface Post {
+  id: number;
   foodlist: string
 }
 
@@ -23,7 +24,10 @@ export interface post_address {
   styleUrls: ['./mapbox.component.css']
 })
 export class MapBoxComponent implements OnInit {
+  loggers: any;
   closestPosts: Post[] = [];
+  thisUser: any;
+
   private map: mapboxgl.Map;
   private mapContainer: HTMLElement;
 
@@ -49,6 +53,7 @@ export class MapBoxComponent implements OnInit {
 
   ngOnInit() {
     const user = this.getUsernameFromLocalStorage()
+    this.thisUser = user
     const token = this.getTokenFromLocalStorage()
 
     this.addressService.getUserAddresses(user, token).subscribe(
@@ -72,6 +77,7 @@ export class MapBoxComponent implements OnInit {
     setTimeout(() => {
       this.initMap(this.user_address, this.coordinates)
       this.fetchAndDisplayClosestPosts(this.user_address)
+      this.reserve(1)
     }, 2000)
   }
 
@@ -110,5 +116,10 @@ export class MapBoxComponent implements OnInit {
         .addTo(this.map);
     });
   } else {console.log("user_coordinates")}
+  }
+
+  private reserve(id) {
+    this.loggers = 'hello'
+    console.log(this.thisUser)
   }
 }

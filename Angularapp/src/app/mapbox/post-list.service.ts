@@ -2,9 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-interface Post {
-    foodlist: string;
-}
+import { Post } from './user-address.service';
 
 @Injectable({
     providedIn: 'root',
@@ -15,9 +13,14 @@ interface Post {
     private postListUrl = 'https://waste-not-wizards.onrender.com/api/posts?latitude=$(userLatitude)&longitude=$(userLongitude)'
   
     constructor(private http: HttpClient) {}
-    posts: Post[] = []
-    getPostList(userCoor): Observable<Post[]>{
-        let data = this.http.get<Post[]>(this.postListUrl);
+    getPostList(userCoor){
+        let data = this.http.get(this.postListUrl);
         return data
+    }
+  }
+
+  export class button {
+    test(id){
+      console.log("hello")
     }
   }
