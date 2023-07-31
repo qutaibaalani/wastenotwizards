@@ -82,7 +82,6 @@ export class MapBoxComponent implements OnInit {
     setTimeout(() => {
       this.initMap(this.user_address, this.coordinates)
       this.fetchAndDisplayClosestPosts(this.user_address)
-      this.reserve(1)
     }, 2000)
   }
 
@@ -135,16 +134,14 @@ export class MapBoxComponent implements OnInit {
   } else {console.log("user_coordinates")}
   }
 
-  public reserve(id) {
+  public reserve(event, id) {
     console.log('hello')
     console.log(this.thisUser)
 
     let currentDateTime = this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss');
     console.log(currentDateTime)
     this.http.patch('https://waste-not-wizards.onrender.com/api/posts/${id}/', {
-      "reservation_status": "Closed",
-      "reserved_by_id": id,
-      "reservation_time": currentDateTime,
+      "reservation_status": "Closed"
     })
   }
 }
