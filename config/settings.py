@@ -159,7 +159,7 @@ USE_TZ = True
 # settings.py
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR,"angularapp/dist/angularapp")]
+STATICFILES_DIRS = [os.path.join(BASE_DIR,"Angularapp/dist/angularapp")]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = "spa.storage.SPAStaticFilesStorage"
 
