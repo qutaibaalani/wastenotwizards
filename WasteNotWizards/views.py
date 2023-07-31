@@ -51,6 +51,15 @@ def get_nearby_coordinates(request):
     return JsonResponse(data, safe=False)
 
 @csrf_exempt
+def get_reserved_posts(request):
+    user = request.GET.get('reserved_by')
+
+    posts = Post.objects.filter(
+        reserved_by=user,
+    )
+    return JsonResponse(posts)
+
+@csrf_exempt
 def get_nearby_coordinates(request):
     user_latitude = float(request.GET.get('latitude', 0))
     user_longitude = float(request.GET.get('longitude', 0))
@@ -65,7 +74,8 @@ def get_nearby_coordinates(request):
     # Filter coordinates within the bounding box
     nearby_coordinates = Post.objects.filter(
         latitude__range=(min_latitude, max_latitude),
-        longitude__range=(min_longitude, max_longitude)
+        longitude__range=(min_longitude, max_longitude),
+        reservation_status="Open"
     )
 
     data = [{
