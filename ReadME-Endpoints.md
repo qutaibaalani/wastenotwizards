@@ -200,7 +200,7 @@ GET api/posts
 
 
 ## PROVIDER POSTS
-> https://waste-not-wizards.onrender.com/api/profile/<\username>/posts/
+> https://waste-not-wizards.onrender.com/api/profile/<username>/posts/
 
 *request*
 ```json

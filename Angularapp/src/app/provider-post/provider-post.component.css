@@ -54,3 +54,8 @@ body {
     display: block;
     margin: 0 auto;
 }
+
+/* Add some space at the top of the past posts card */
+.past-posts-card {
+    margin-top: 2rem;
+}

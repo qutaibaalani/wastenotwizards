@@ -32,4 +32,22 @@
         </mat-card-actions>
       </form>
     </mat-card>
+
+    <!-- Past posts -->
+    <mat-card class="mat-elevation-z8 past-posts-card">
+      <mat-card-header>
+        <mat-card-title>Past Posts</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngFor="let post of pastPosts">
+          <!-- Replace the following with the actual properties of your post object -->
+          <h3>{{ post.posted_by_user }}</h3>
+          <p>Food list: {{ post.food_list }}</p>
+          <p>Monetary Value: {{ post.monetary_value }}</p>
+          <p>Address: {{ post.address }}</p>
+          <!-- Add a divider for visual separation between posts -->
+          <mat-divider></mat-divider>
+        </div>
+      </mat-card-content>
+    </mat-card>
 </div>

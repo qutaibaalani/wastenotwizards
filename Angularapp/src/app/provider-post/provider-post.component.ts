@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { ProviderService } from '../provider.service';
 
 @Component({
   selector: 'app-provider-post',
@@ -9,33 +9,48 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProviderPostComponent implements OnInit {
   postForm: FormGroup;
+  pastPosts: any[] = [];
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(
+    private fb: FormBuilder, 
+    private providerService: ProviderService
+  ) { }
 
   ngOnInit(): void {
     this.postForm = this.fb.group({
       posted_by_user: ['', Validators.required],
       food_list: ['', Validators.required],
       monetary_value: ['', Validators.required],
-      address: ['', Validators.required] // Add the "address" field
+      address: ['', Validators.required]
+    });
+
+    this.getPastPosts();
+  }
+
+  getPastPosts(): void {
+    const id = localStorage.getItem('id');
+  
+    if (!id) {
+      console.error('ID not found!');
+      return;
+    }
+
+    this.providerService.getPastPosts(id).subscribe((posts: any[]) => {
+      this.pastPosts = posts;
     });
   }
 
   onSubmit(): void {
     if (this.postForm.valid) {
-      const token = localStorage.getItem('auth_token');
       const postData = this.postForm.value;
 
-      this.http.post('https://waste-not-wizards.onrender.com/api/posts', postData, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${token}`
-        }
-      }).subscribe(
+      this.providerService.createPost(postData).subscribe(
         res => {
           console.log(res);
-          // Clear the form after successful submission
           this.postForm.reset();
+
+          // Refresh the list of posts
+          this.getPastPosts();
         },
         error => console.log('Error!', error)
       );
