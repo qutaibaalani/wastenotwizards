@@ -8,6 +8,8 @@
     <ul>
       <li *ngFor="let post of closestPosts">
         <strong>{{ post.foodlist }}</strong>
+        <p>{{ post.id }}</p>
+        <button onclick="reserve(post.id)">Reserve Now!</button>
         <!-- Display other post details as needed -->
       </li>
     </ul>

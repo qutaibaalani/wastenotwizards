@@ -95,6 +95,11 @@ class Provider(models.Model):
 
 # Model to represent posts.
 class Post(models.Model):
+    STATUS_CHOICES = [
+        ("Open", "Open"),
+        ("Reserved", "Reserved"),
+        ("Closed", "Closed")
+    ]
     posted_by_user = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
@@ -107,10 +112,11 @@ class Post(models.Model):
     address = models.TextField()
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
+    reservation_status = models.CharField(choices=STATUS_CHOICES, default="Open")
+    reservation_time = models.TimeField(blank=True, null=True)
 
     def __str__(self):
         return self.food_list
-
 
 # ----------------------------------------- RESERVATION MODEL -----------------------------------------
 
