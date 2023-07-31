@@ -100,6 +100,19 @@ export class MapBoxComponent implements OnInit {
       );
   }
 
+  private fetchAndDisplayReservedPosts(user_coor): void {
+    this.http.get<Post[]>(`https://waste-not-wizards.onrender.com/api/closePosts?latitude=${user_coor[1]}&longitude=${user_coor[0]}&reservation_status=Open`)
+      .subscribe(
+        (data) => {
+          this.closestPosts = data.slice(0, 10);
+          console.log(this.closestPosts) 
+      
+        },
+        (error) => {
+          console.error('Error fetching closest posts:', error);
+        }
+      );
+  }
 
 
   private initMap(user_coordinates, pin_coordinates) {
