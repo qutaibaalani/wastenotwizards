@@ -46,6 +46,8 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('auth_token', response.auth_token);
 
             this.auth.getUserDetails(loginData.username).subscribe((user) => {
+              // Save the user's ID in local storage
+              localStorage.setItem('id', user.id.toString());
 
               if (user.is_provider) {
                 localStorage.setItem('role', 'provider');
