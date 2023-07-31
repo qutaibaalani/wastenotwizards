@@ -114,6 +114,7 @@ class Post(models.Model):
     longitude = models.FloatField(blank=True, null=True)
     reservation_status = models.CharField(choices=STATUS_CHOICES, default="Open")
     reservation_time = models.TimeField(blank=True, null=True)
+    reserved_by = models.CharField(blank=True, null=True)
 
     def __str__(self):
         return self.food_list
