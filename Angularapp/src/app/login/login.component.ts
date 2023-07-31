@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private auth: AuthService // Inject AuthService here
+    private auth: AuthService 
   ) {}
 
   ngOnInit() {
@@ -41,20 +42,18 @@ export class LoginComponent implements OnInit {
             console.log('Success!', response);
             alert('Welcome, ' + loginData.username + '!');
 
-            // Store the token and username
             localStorage.setItem('username', loginData.username);
             localStorage.setItem('auth_token', response.auth_token);
 
-            // Get user details after successful login
             this.auth.getUserDetails(loginData.username).subscribe((user) => {
-              // Assuming 'is_provider' contains the user role 
-              const userRole = user.is_provider ? 'provider' : 'recipient';
 
-              // Store the user role in local storage
-              localStorage.setItem('role', userRole);
+              if (user.is_provider) {
+                localStorage.setItem('role', 'provider');
+              } else if (user.is_receiver) {
+                localStorage.setItem('role', 'receiver');
+              }
 
-              // Redirect user based on their role
-              this.auth.redirectUser({role: userRole});
+              this.auth.redirectUser(user);
             });
           },
           error: (error) => {
