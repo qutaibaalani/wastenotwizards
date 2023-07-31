@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import generics
+from rest_framework.response import Response
 from rest_framework.permissions import (
     IsAuthenticated,
     IsAuthenticatedOrReadOnly,
@@ -178,6 +179,7 @@ class OnePostView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PostListSerializer
     # Authenticated users can update/delete, everyone can read
     permission_classes = [IsAuthenticatedOrReadOnly]
+    
 
 class postAddresses(generics.ListAPIView):
     queryset = Post.objects.all()
