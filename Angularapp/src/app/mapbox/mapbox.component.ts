@@ -34,6 +34,7 @@ export class MapBoxComponent implements OnInit {
   private map: mapboxgl.Map;
   private mapContainer: HTMLElement;
 
+  private post_id: any;
   private user_address: Address[]; 
   private coordinates: any;
 
@@ -135,13 +136,26 @@ export class MapBoxComponent implements OnInit {
   }
 
   public reserve(event, id) {
-    console.log('hello')
+    let token = this.getTokenFromLocalStorage()
     console.log(this.thisUser)
+    let url = 'https://waste-not-wizards.onrender.com/api/posts/' + id + '/'
+    console.log(url)
+    let data = {"reservation_status": "Closed", "reserved_by": this.thisUser}
 
     let currentDateTime = this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss');
-    console.log(currentDateTime)
-    this.http.patch('https://waste-not-wizards.onrender.com/api/posts/${id}/', {
-      "reservation_status": "Closed"
-    })
+    this.http.patch(url, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${token}`
+      }
+    }).subscribe(
+      res => {
+        console.log("working!!!!")
+    },
+    error => {
+      console.log("OOOHHH NOOO")
+    }
+    )
   }
 }
+
