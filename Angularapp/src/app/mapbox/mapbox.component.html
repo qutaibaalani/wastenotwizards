@@ -9,7 +9,7 @@
       <li *ngFor="let post of closestPosts">
         <strong>{{ post.foodlist }}</strong>
         <p>{{ post.id }}</p>
-        <button onclick="console.log(reserve(post.id))">Reserve Now!</button>
+        <button onclick="reserve(post.id)">Reserve Now!</button>
         <!-- Display other post details as needed -->
       </li>
     </ul>
