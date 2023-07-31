@@ -137,12 +137,10 @@ export class MapBoxComponent implements OnInit {
 
   public reserve(event, id) {
     let token = this.getTokenFromLocalStorage()
-    console.log(this.thisUser)
     let url = 'https://waste-not-wizards.onrender.com/api/posts/' + id + '/'
-    console.log(url)
-    let data = {"reservation_status": "Closed", "reserved_by": this.thisUser}
-
     let currentDateTime = this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss');
+    let data = {"reservation_status": "Closed", "reserved_by": this.thisUser, "reservation_time": currentDateTime}
+
     this.http.patch(url, data, {
       headers: {
         'Content-Type': 'application/json',
