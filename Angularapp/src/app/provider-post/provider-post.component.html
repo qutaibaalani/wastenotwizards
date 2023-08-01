@@ -44,7 +44,7 @@
           </mat-card-header>
           <mat-card-content>
             <div class="post-details">
-              <mat-icon class="post-icon">list</mat-icon>
+              <mat-icon class="post-icon">restaurant_menu</mat-icon>
               <span>Food list: {{ post.food_list }}</span>
             </div>
             <div class="post-details">
@@ -57,8 +57,8 @@
             </div>
           </mat-card-content>
           <mat-card-actions class="post-actions">
-            <button mat-button color="primary">Edit</button>
-            <button mat-button color="warn">Delete</button>
+            <button mat-button color="primary" (click)="editPost(post)">Edit</button>
+            <button mat-button color="warn" (click)="deletePost(post)">Delete</button>
           </mat-card-actions>
         </mat-card>
     </div>
