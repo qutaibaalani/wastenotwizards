@@ -34,7 +34,7 @@ export class MapBoxComponent implements OnInit {
 
   private map: mapboxgl.Map;
   private mapContainer: HTMLElement;
-
+  private thisUserid: any;
   private post_id: any;
   private user_address: Address[]; 
   private coordinates: any;
@@ -61,6 +61,7 @@ export class MapBoxComponent implements OnInit {
   ngOnInit() {
     const user = this.getUsernameFromLocalStorage()
     this.thisUser = user
+    this.thisUserid = localStorage.getItem('id')
     const token = this.getTokenFromLocalStorage()
 
     this.addressService.getUserAddresses(user, token).subscribe(
@@ -82,6 +83,7 @@ export class MapBoxComponent implements OnInit {
     );
     this.mapContainer = document.getElementById('map')
     setTimeout(() => {
+      console.log(this.user_address)
       this.initMap(this.user_address, this.coordinates)
       this.fetchAndDisplayClosestPosts(this.user_address)
       this.fetchAndDisplayReservedPosts()
@@ -103,7 +105,9 @@ export class MapBoxComponent implements OnInit {
   }
 
   private fetchAndDisplayReservedPosts(): void {
-    this.http.get<Post[]>(`https://waste-not-wizards.onrender.com/api/reservedPosts?reserved_by=${this.thisUser}`)
+    let url = 'https://waste-not-wizards.onrender.com/api/reservations/receiver/' + this.thisUserid + '/'
+    console.log(url)
+    this.http.get<any>(url)
       .subscribe(
         (data) => {
           this.reservedPosts = data
@@ -111,7 +115,7 @@ export class MapBoxComponent implements OnInit {
       
         },
         (error) => {
-          console.error('Error fetching closest posts:', error);
+          console.error('Error fetching reserved posts:', error);
         }
       );
   }
@@ -142,6 +146,8 @@ export class MapBoxComponent implements OnInit {
     let url = 'https://waste-not-wizards.onrender.com/api/posts/' + id + '/'
     let currentDateTime = this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss');
     let data = {"reservation_status": "Closed", "reserved_by": this.thisUser}
+    let postdata = {"receiver": this.thisUser, "post": id}
+    let posturl = 'https://waste-not-wizards.onrender.com/api/reservations/receiver/' + this.thisUserid + '/'
 
     this.http.patch(url, data, {
       headers: {
@@ -150,12 +156,25 @@ export class MapBoxComponent implements OnInit {
       }
     }).subscribe(
       res => {
-        console.log("working!!!!")
+        console.log("working patch!!!!")
     },
     error => {
-      console.log("OOOHHH NOOO")
+      console.log("OOOHHH NOOO patch")
     }
     )
+
+    this.http.post(posturl, postdata, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${token}`
+      }
+    }).subscribe(
+      res => {
+        console.log("posturl working!!!!")
+    },
+    error => {
+      console.log("OOOHHH NOOO posturl")
+    })
   }
 }
 

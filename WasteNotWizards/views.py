@@ -212,7 +212,7 @@ class AllPostView(generics.ListCreateAPIView):
 
 
 # View for listing reservations related to a receiver instance
-class ReceiverReservationListView(generics.ListAPIView):
+class ReceiverReservationListView(generics.ListCreateAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
     # The `lookup_field` is set to "username" to retrieve reservations based on the username of the associated receiver's user.
