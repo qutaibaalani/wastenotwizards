@@ -22,24 +22,24 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatListModule } from '@angular/material/list'; // New import
+import { MatListModule } from '@angular/material/list'; 
+import { MatTableModule } from '@angular/material/table'; 
+import { MatTooltipModule } from '@angular/material/tooltip'; // new import
 import { PostListComponent } from './post-list/post-list.component';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AuthService } from './auth.service';
-
-
 
 const routes: Routes = [
   { path: 'recipient-registration', component: RecipientRegistrationComponent },
   { path: 'provider-registration', component: ProviderRegistrationComponent },
   { path: 'map', component: MapBoxComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'login/success', redirectTo: '/map', pathMatch: 'full'}, /*redirect to map after successful login*/
+  { path: 'login/success', redirectTo: '/map', pathMatch: 'full'},
   { path: 'logout', component: LogoutComponent },
   { path: 'provider-post', component: ProviderPostComponent },
   { path: 'reservation', component: ReservationComponent }, 
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // redirect to login if no path
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -72,10 +72,12 @@ const routes: Routes = [
     MatIconModule,
     MatProgressSpinnerModule,
     FlexLayoutModule,
-    MatListModule, // Add this
+    MatListModule,
+    MatTableModule,
+    MatTooltipModule, // add MatTooltipModule here
   ],
   providers: [
-    AuthService, // add AuthService to providers
+    AuthService, 
   ],
   bootstrap: [AppComponent]
 })

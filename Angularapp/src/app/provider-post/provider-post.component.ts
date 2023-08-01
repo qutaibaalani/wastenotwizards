@@ -1,70 +1,59 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProviderService } from '../provider.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
-  selector: 'app-provider-post',
-  templateUrl: './provider-post.component.html',
-  styleUrls: ['./provider-post.component.css']
+    selector: 'app-provider-post',
+    templateUrl: './provider-post.component.html',
+    styleUrls: ['./provider-post.component.css'],
 })
 export class ProviderPostComponent implements OnInit {
-  postForm: FormGroup;
-  pastPosts: any[] = [];
+    postForm: FormGroup;
+    pastPosts: any[] = [];
+    displayedColumns: string[] = ['food_list', 'reservation_status'];
+    dataSource: MatTableDataSource<any>;
 
-  constructor(
-    private fb: FormBuilder, 
-    private providerService: ProviderService
-  ) { }
+    constructor(private fb: FormBuilder, private providerService: ProviderService) { }
 
-  ngOnInit(): void {
-    this.postForm = this.fb.group({
-      posted_by_user: ['', Validators.required],
-      food_list: ['', Validators.required],
-      monetary_value: ['', Validators.required],
-      address: ['', Validators.required]
-    });
+    ngOnInit(): void {
+        this.postForm = this.fb.group({
+            posted_by_user: ['', Validators.required],
+            food_list: ['', Validators.required],
+            monetary_value: ['', Validators.required],
+            address: ['', Validators.required],
+        });
 
-    this.getPastPosts();
-  }
-
-  getPastPosts(): void {
-    const id = localStorage.getItem('id');
-  
-    if (!id) {
-      console.error('ID not found!');
-      return;
+        this.getPastPosts();
     }
 
-    this.providerService.getPastPosts(id).subscribe((posts: any[]) => {
-      this.pastPosts = posts;
-    });
-  }
+    getPastPosts(): void {
+        const id = localStorage.getItem('id');
 
-  onSubmit(): void {
-    if (this.postForm.valid) {
-      const postData = this.postForm.value;
+        if (!id) {
+            console.error('ID not found!');
+            return;
+        }
 
-      this.providerService.createPost(postData).subscribe(
-        res => {
-          console.log(res);
-          this.postForm.reset();
-
-          // Refresh the list of posts
-          this.getPastPosts();
-        },
-        error => console.log('Error!', error)
-      );
+        this.providerService.getPastPosts(id).subscribe((posts: any[]) => {
+            this.pastPosts = posts;
+            this.dataSource = new MatTableDataSource(this.pastPosts);
+        });
     }
-  }
 
-  // Add these methods
-  editPost(post): void {
-    console.log('Edit post', post);
-    // Add your logic for editing a post here
-  }
+    onSubmit(): void {
+        if (this.postForm.valid) {
+            const postData = this.postForm.value;
 
-  deletePost(post): void {
-    console.log('Delete post', post);
-    // Add your logic for deleting a post here
-  }
+            this.providerService.createPost(postData).subscribe(
+                (res) => {
+                    console.log(res);
+                    this.postForm.reset();
+                    this.getPastPosts();
+                },
+                (error) => console.log('Error!', error)
+            );
+        }
+    }
 }
+
