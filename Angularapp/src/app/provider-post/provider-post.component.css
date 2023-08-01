@@ -37,7 +37,7 @@
     box-shadow: none;
   }
   
- /* table */
+  /* table */
   .mat-table {
     width: 90%;
     margin-top: 20px;
@@ -51,6 +51,12 @@
   .status-pending {
     color: orange;
     font-weight: bold;
+  }
+  
+  .closed-status-icon {
+    color: red;
+    font-size: 24px;
+    vertical-align: middle;
   }
   
   .post-container {
