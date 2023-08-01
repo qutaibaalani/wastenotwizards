@@ -56,4 +56,15 @@ export class ProviderPostComponent implements OnInit {
       );
     }
   }
+
+  // Add these methods
+  editPost(post): void {
+    console.log('Edit post', post);
+    // Add your logic for editing a post here
+  }
+
+  deletePost(post): void {
+    console.log('Delete post', post);
+    // Add your logic for deleting a post here
+  }
 }
