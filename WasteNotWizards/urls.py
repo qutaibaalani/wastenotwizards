@@ -17,7 +17,7 @@ urlpatterns = [
     ),
     # To list reservations related to a receiver based on the username
     path(
-        "reservations/receiver/<str:username>/",
+        "reservations/receiver/<int:pk>/",
         views.ReceiverReservationListView.as_view(),
         name="receiver_reservation_list",
     ),
