@@ -22,6 +22,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatListModule } from '@angular/material/list'; // New import
 import { PostListComponent } from './post-list/post-list.component';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -71,6 +72,7 @@ const routes: Routes = [
     MatIconModule,
     MatProgressSpinnerModule,
     FlexLayoutModule,
+    MatListModule, // Add this
   ],
   providers: [
     AuthService, // add AuthService to providers

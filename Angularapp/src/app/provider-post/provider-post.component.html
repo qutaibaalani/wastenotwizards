@@ -1,53 +1,66 @@
 <div class="container">
-    <mat-card class="mat-elevation-z8">
-      <mat-card-header>
-        <mat-card-title>
-          <div class="logo-container">
-            <img src="assets/img/logo.jpg" alt="Logo" class="logo">
-          </div>
-        </mat-card-title>
-      </mat-card-header>
-      <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="form-container">
-        <mat-card-content>
-          <h2 class="mat-headline">Post Available Food</h2>
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Posted By User</mat-label>
-            <input matInput formControlName="posted_by_user">
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Food List</mat-label>
-            <input matInput formControlName="food_list">
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Monetary Value</mat-label>
-            <input matInput formControlName="monetary_value">
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="full-width-input">
-            <mat-label>Address</mat-label>
-            <input matInput formControlName="address">
-          </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary" type="submit" class="submit-button">Submit</button>
-        </mat-card-actions>
-      </form>
+    <mat-card class="mat-elevation-z8 post-form-container">
+        <mat-card-header>
+            <mat-card-title>
+                <div class="logo-container">
+                    <img src="assets/img/logo.jpg" alt="Logo" class="logo">
+                </div>
+            </mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="form-container">
+            <mat-card-content>
+                <h2 class="mat-headline">Post Available Food</h2>
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Posted By User</mat-label>
+                    <input matInput formControlName="posted_by_user">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Food List</mat-label>
+                    <input matInput formControlName="food_list">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Monetary Value</mat-label>
+                    <input matInput formControlName="monetary_value">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Address</mat-label>
+                    <input matInput formControlName="address">
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" type="submit" class="submit-button">Submit</button>
+            </mat-card-actions>
+        </form>
     </mat-card>
 
     <!-- Past posts -->
     <mat-card class="mat-elevation-z8 past-posts-card">
-      <mat-card-header>
-        <mat-card-title>Past Posts</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div *ngFor="let post of pastPosts">
-          <!-- Replace the following with the actual properties of your post object -->
-          <h3>{{ post.posted_by_user }}</h3>
-          <p>Food list: {{ post.food_list }}</p>
-          <p>Monetary Value: {{ post.monetary_value }}</p>
-          <p>Address: {{ post.address }}</p>
-          <!-- Add a divider for visual separation between posts -->
-          <mat-divider></mat-divider>
-        </div>
-      </mat-card-content>
+        <mat-card-header>
+            <mat-card-title>Past Posts</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div *ngFor="let post of pastPosts" class="post">
+                <mat-list>
+                    <mat-list-item>
+                        <mat-icon matListIcon>person</mat-icon>
+                        {{ post.posted_by_user }}
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-icon matListIcon>fastfood</mat-icon>
+                        Food list: {{post.food_list}}
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-icon matListIcon>attach_money</mat-icon>
+                        Monetary value: {{post.monetary_value}}
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-icon matListIcon>place</mat-icon>
+                        Address: {{post.address}}
+                    </mat-list-item>
+                </mat-list>
+                <!-- Add a divider for visual separation between posts -->
+                <mat-divider></mat-divider>
+            </div>
+        </mat-card-content>
     </mat-card>
 </div>
