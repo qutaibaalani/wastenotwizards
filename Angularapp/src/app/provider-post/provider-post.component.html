@@ -32,34 +32,29 @@
         </mat-card-actions>
       </form>
     </mat-card>
-
-    <!-- Past posts -->
-    <div *ngFor="let post of pastPosts" class="post-container">
-        <mat-card class="mat-elevation-z8 post-content">
-          <mat-card-header>
-            <mat-card-title>
-              <mat-icon class="post-icon">person</mat-icon>
-              <span class="post-name">{{ post.posted_by_user }}</span>
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <div class="post-details">
-              <mat-icon class="post-icon">restaurant_menu</mat-icon>
-              <span>Food list: {{ post.food_list }}</span>
-            </div>
-            <div class="post-details">
-              <mat-icon class="post-icon">attach_money</mat-icon>
-              <span>Monetary value: {{ post.monetary_value }}</span>
-            </div>
-            <div class="post-details">
-              <mat-icon class="post-icon">location_on</mat-icon>
-              <span>Address: {{ post.address }}</span>
-            </div>
-          </mat-card-content>
-          <mat-card-actions class="post-actions">
-            <button mat-button color="primary" (click)="editPost(post)">Edit</button>
-            <button mat-button color="warn" (click)="deletePost(post)">Delete</button>
-          </mat-card-actions>
-        </mat-card>
-    </div>
-</div>
+  
+   
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+     
+      <ng-container matColumnDef="food_list">
+        <th mat-header-cell *matHeaderCellDef> Food List </th>
+        <td mat-cell *matCellDef="let post"> {{ post.food_list }} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="reservation_status">
+        <th mat-header-cell *matHeaderCellDef> Reservation Status </th>
+        <td mat-cell *matCellDef="let post">
+          <span [ngClass]="{'status-closed': post.reservation_status === 'Closed', 'status-pending': post.reservation_status === 'Pending'}">
+            {{ post.reservation_status }}
+          </span>
+        </td>
+      </ng-container>
+  
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  
+     
+      <tr mat-row *matRowDef="let post; columns: displayedColumns"></tr>
+    </table>
+  </div>
+  
