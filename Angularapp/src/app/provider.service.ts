@@ -26,5 +26,13 @@ export class ProviderService {
       }
     });
   }
-}
 
+  deletePost(id: string): Observable<any> {
+    const token = localStorage.getItem('auth_token');
+    return this.http.delete(`https://waste-not-wizards.onrender.com/api/posts/${id}`, {
+      headers: {
+        'Authorization': `Token ${token}`
+      }
+    });
+  }
+}

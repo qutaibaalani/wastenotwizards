@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ProviderPostComponent implements OnInit {
   postForm: FormGroup;
   pastPosts: any[] = [];
-  displayedColumns: string[] = ['food_list', 'reservation_status', 'isClosed'];
+  displayedColumns: string[] = ['food_list', 'reservation_status', 'delete'];
   dataSource: MatTableDataSource<any>;
 
   // Init this property to false to hide the form at page load
@@ -30,7 +30,7 @@ export class ProviderPostComponent implements OnInit {
     this.getPastPosts();
   }
 
-  // nd method to toggle the form
+  // Method to toggle the form
   togglePostForm(): void {
     this.showPostForm = !this.showPostForm;
   }
@@ -63,5 +63,14 @@ export class ProviderPostComponent implements OnInit {
       );
     }
   }
-}
 
+  deletePost(id: string): void {
+    this.providerService.deletePost(id).subscribe(
+      (res) => {
+        console.log(res);
+        this.getPastPosts();
+      },
+      (error) => console.log('Error!', error)
+    );
+  }
+}
