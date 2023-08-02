@@ -1,4 +1,4 @@
-import { Component, OnInit, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewContainerRef, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 import { PostAddressService } from './user-address.service';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +14,7 @@ export interface Post {
 export interface Address {
   user_longitude: number;
   user_latitude: number;
+  id: any;
 }
 
 export interface post_address {
@@ -32,7 +33,7 @@ export class MapBoxComponent implements OnInit {
   reservedPosts: Post[] = [];
   thisUser: any;
 
-
+private target
   private map: mapboxgl.Map;
   private mapContainer: HTMLElement;
   private thisUserid: any;
@@ -40,13 +41,16 @@ export class MapBoxComponent implements OnInit {
   private user_address: Address[]; 
   private coordinates: any;
 
+  dynamicDivRef: ElementRef
+
   constructor(private addressService: PostAddressService, 
   private http: HttpClient,
   private componentFactoryResolver: ComponentFactoryResolver,
   private viewContainerRef: ViewContainerRef,
+  private renderer: Renderer2,
   public datepipe: DatePipe) {let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss')}
 
-
+  
 
   getUsernameFromLocalStorage() {
     const storedData = localStorage.getItem('username');
@@ -75,7 +79,7 @@ export class MapBoxComponent implements OnInit {
       (post_info) => {
         this.coordinates = []
         post_info.forEach((pin)=> {
-          this.coordinates.push([pin.longitude, pin.latitude])
+          this.coordinates.push([pin.longitude, pin.latitude, pin.id])
         });
       },
       (error) => {
@@ -84,20 +88,19 @@ export class MapBoxComponent implements OnInit {
     );
     this.mapContainer = document.getElementById('map')
     setTimeout(() => {
-      console.log(this.user_address)
-      this.initMap(this.user_address, this.coordinates)
       this.fetchAndDisplayClosestPosts(this.user_address)
       this.fetchAndDisplayReservedPosts()
     }, 2000)
+    setTimeout(() => {
+    this.initMap(this.user_address, this.closestPosts, this.reservedPosts)
+  }, 5000)
   }
 
   private fetchAndDisplayClosestPosts(user_coor): void {
     this.http.get<Post[]>(`https://waste-not-wizards.onrender.com/api/closePosts?latitude=${user_coor[1]}&longitude=${user_coor[0]}&reservation_status=Open`)
       .subscribe(
         (data) => {
-          this.closestPosts = data.slice(0, 10);
-          //console.log(this.closestPosts) 
-      
+          this.closestPosts = data.slice(0, 10);                 
         },
         (error) => {
           console.error('Error fetching closest posts:', error);
@@ -118,7 +121,6 @@ export class MapBoxComponent implements OnInit {
       .subscribe(
         (data) => {
           this.reservedPosts = data
-          console.log(this.reservedPosts)
       
         },
         (error) => {
@@ -128,7 +130,7 @@ export class MapBoxComponent implements OnInit {
   }
 
 
-  private initMap(user_coordinates, pin_coordinates) {
+  private initMap(user_coordinates, open_coordinates, reserved_coordinates) {
     (mapboxgl as any).accessToken = 'pk.eyJ1IjoibWVhZ2FucnViaW5vIiwiYSI6ImNsa2QweHh0czBzbzMzanBoamxlNWYwN3EifQ.Z1_FaWyOr3_mK9ErWinJFw';
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -137,23 +139,53 @@ export class MapBoxComponent implements OnInit {
       zoom: 10 // Set the initial zoom level of the map
     });
 
-    if (pin_coordinates && Array.isArray(pin_coordinates)){
-    pin_coordinates.forEach((pin_arr) => {
-      var long = pin_arr[0]
-      var lat = pin_arr[1]
-      new mapboxgl.Marker()
-        .setLngLat([long, lat])
-        .addTo(this.map);
+    if (open_coordinates){
+    open_coordinates.forEach((pin_arr) => {
+      var long = pin_arr.longitude
+      var lat = pin_arr.latitude
+      let id = '' + pin_arr.id
+      let pin = new mapboxgl.Marker().setLngLat([long, lat]).addTo(this.map);
+      //this.dynamicDivRef = new ElementRef(this.renderer.selectRootElement('#map'))
+      let doc = document.getElementById(id)
+      pin.getElement().addEventListener('click', () =>{
+        console.log(id, typeof id)
+        console.log(doc)
+        doc.classList.add('red')
+        doc.scrollIntoView({ behavior: 'smooth' }); 
+      })
     });
-  } else {console.log("user_coordinates")}
   }
 
-  public reserve(event, id) {
+  if (reserved_coordinates){
+    reserved_coordinates.forEach((pin_arr) => {
+      console.log(pin_arr)
+      var long = pin_arr.longitude
+      var lat = pin_arr.latitude
+      let id = '' + pin_arr.id
+      let pin = new mapboxgl.Marker().setLngLat([long, lat]).addTo(this.map);
+      //this.dynamicDivRef = new ElementRef(this.renderer.selectRootElement('#map'))
+      let doc = document.getElementById(id)
+      pin.getElement().addEventListener('click', () =>{
+        console.log(id, typeof id)
+        console.log(doc)
+        doc.classList.add('red')
+        doc.scrollIntoView({ behavior: 'smooth' }); 
+      })
+    });
+  }
+  }
+
+  public moveMap(event, post){
+    console.log(post)
+    this.map.setCenter([post.longitude, post.latitude])
+  }
+
+  public reserve(event, id, post) {
     let token = this.getTokenFromLocalStorage()
     let url = 'https://waste-not-wizards.onrender.com/api/posts/' + id + '/'
     let currentDateTime = this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss');
     let data = {"reservation_status": "Reserved", "reserved_by": this.thisUser}
-    let postdata = {"receiver": this.thisUser, "post": id}
+    let postdata = {"receiver": this.thisUser, "post": id, 'lat': post.latitude, 'long': post.longitude}
     let posturl = 'https://waste-not-wizards.onrender.com/api/reservations/receiver/' + this.thisUserid + '/'
 
     this.http.patch(url, data, {

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 interface Address {
   latitude: number;
   longitude: number;
+  pin: any;
 }
 
 interface user_address {
@@ -44,12 +45,11 @@ export class PostAddressService {
     return this.http.get(this.apiUrl)
   }
   
-  getPostAddresses(): Observable<Address[]> {
-    return this.http.get<Address[]>(this.postList)
+  getPostAddresses(): Observable<any> {
+    return this.http.get<any>(this.postList)
   }
 
   getUserAddresses(username, authToken): Observable<user_address[]> {
-    console.log(username, authToken)
     const headers = {
       Authorization: `Token ${authToken}`,
     };
