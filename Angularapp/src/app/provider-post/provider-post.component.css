@@ -46,3 +46,10 @@
     color: red;
 }
 
+.reserved-status-icon {
+    color: orange;
+}
+
+.status-reserved {
+    color: yellow;
+}
