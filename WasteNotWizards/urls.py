@@ -27,10 +27,16 @@ urlpatterns = [
         views.ReservationUpdateDestroyView.as_view(),
         name="reservation_detail",
     ),
+    # This path is for geocoding a user's address.
     path("geocode", views.geocode_user_address, name="geocode"),
+    # This path is for geocoding addresses related to a user.
     path("user/geocode", views.geocode_addresses_user, name="geocode_user"),
+    # This path is for geocoding addresses related to posts.
     path("posts/geocode", views.geocode_addresses_post, name="geocode_posts"),
+    # This path is for accessing and handling post addresses.
     path("post-addresses", views.postAddresses.as_view(), name="post-addresses"),
+    # This path is for getting nearby coordinates for posts.
     path("closePosts", views.get_nearby_coordinates, name="closePosts"),
-    path("reservedPosts", views.get_reserved_posts, name="reserved_posts")
+    # This path is for getting reserved posts.
+    path("reservedPosts", views.get_reserved_posts, name="reserved_posts"),
 ]
