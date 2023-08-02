@@ -2,13 +2,13 @@
 <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.40.1/mapbox-gl.js"></script>
 
 <div id="map"></div>
-
+<div id="reserved"></div>
+<div #targetDivRef></div>
 <div *ngIf="reservedPosts.length > 0">
   <h2>Your Reserved Posts</h2>
   <ul>
     <li *ngFor="let rpost of reservedPosts">
-      <strong>{{ rpost.post }}</strong>
-      <p>{{ rpost.id }}</p>
+      <strong (click)="moveMap($event, rpost)">{{ rpost.post }}</strong>
       <!-- Display other post details as needed -->
     </li>
   </ul>
@@ -21,9 +21,9 @@
     <h2>Closest Posts to You</h2>
     <ul>
       <li *ngFor="let post of closestPosts">
-        <strong>{{ post.foodlist }}</strong>
-        <p>{{ post.id }}</p>
-        <button (click)="reserve($event, post.id)">Reserve Now!</button>
+        <strong id={{post.id}}>{{ post.foodlist }}</strong>
+        <button (click)="moveMap($event, post)">Show On Map</button>
+        <button (click)="reserve($event, post.id, post)">Reserve Now!</button>
         <!-- Display other post details as needed -->
       </li>
     </ul>
