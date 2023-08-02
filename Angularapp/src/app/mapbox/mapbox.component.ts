@@ -7,7 +7,8 @@ import { PostListComponent } from '../post-list/post-list.component'; // Adjust 
 
 export interface Post {
   id: number;
-  foodlist: string
+  foodlist: string;
+  post: any;
 }
 
 export interface Address {
@@ -105,9 +106,15 @@ export class MapBoxComponent implements OnInit {
   }
 
   private fetchAndDisplayReservedPosts(): void {
-    let url = 'https://waste-not-wizards.onrender.com/api/reservations/receiver/' + this.thisUserid + '/'
-    console.log(url)
-    this.http.get<any>(url)
+    let token = this.getTokenFromLocalStorage()
+    let url = 'https://waste-not-wizards.onrender.com/api/reservations/receiver/' + this.thisUserid + '/'   
+
+    this.http.get<any>(url, {
+      headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Token ${token}`
+      }
+    })
       .subscribe(
         (data) => {
           this.reservedPosts = data
@@ -145,7 +152,7 @@ export class MapBoxComponent implements OnInit {
     let token = this.getTokenFromLocalStorage()
     let url = 'https://waste-not-wizards.onrender.com/api/posts/' + id + '/'
     let currentDateTime = this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss');
-    let data = {"reservation_status": "Closed", "reserved_by": this.thisUser}
+    let data = {"reservation_status": "Reserved", "reserved_by": this.thisUser}
     let postdata = {"receiver": this.thisUser, "post": id}
     let posturl = 'https://waste-not-wizards.onrender.com/api/reservations/receiver/' + this.thisUserid + '/'
 
