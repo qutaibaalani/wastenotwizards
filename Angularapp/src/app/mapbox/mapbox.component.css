@@ -15,7 +15,6 @@ body {
     border:1px solid palevioletred;
     background-color:red;
 }
-
 .post-container {
     border: 1px solid #ccc;
     margin: 10px;
@@ -48,4 +47,7 @@ body {
   font-size: 11.2px;  
   margin: 4px 2px;
   cursor: pointer;
+}
+.red {
+    background-color: red;
 }
