@@ -3,31 +3,30 @@
 
 <div id="map"></div>
 
-<div *ngIf="reservedPosts.length > 0">
+<div *ngIf="reservedPosts.length > 0" class="post-container">
   <h2>Your Reserved Posts</h2>
   <ul>
     <li *ngFor="let rpost of reservedPosts">
       <strong>{{ rpost.post }}</strong>
       <p>{{ rpost.id }}</p>
-      <!-- Display other post details as needed -->
+     
     </li>
   </ul>
 </div>
-<div *ngIf="reservedPosts.length === 0">
+<div *ngIf="reservedPosts.length === 0" class="post-container">
   <strong>No reserved posts.</strong>
 </div>
 
-<div *ngIf="closestPosts.length > 0">
-    <h2>Closest Posts to You</h2>
-    <ul>
-      <li *ngFor="let post of closestPosts">
-        <strong>{{ post.foodlist }}</strong>
-        <p>{{ post.id }}</p>
-        <button (click)="reserve($event, post.id)">Reserve Now!</button>
-        <!-- Display other post details as needed -->
-      </li>
-    </ul>
-  </div>
-  <div *ngIf="closestPosts.length === 0">
-    <p>No posts found nearby.</p>
-  </div>
+<div *ngIf="closestPosts.length > 0" class="post-container">
+  <h2>Closest Posts to You</h2>
+  <ul>
+    <li *ngFor="let post of closestPosts" class="post-item">
+      <div class="food-name">{{ post.foodlist }}</div>
+      <button class="reserve-button" (click)="reserve($event, post.id)">Reserve Now!</button>
+      
+    </li>
+  </ul>
+</div>
+<div *ngIf="closestPosts.length === 0" class="post-container">
+  <p>No posts found nearby.</p>
+</div>
