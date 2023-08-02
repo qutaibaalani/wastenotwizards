@@ -65,6 +65,10 @@ class ReservationSerializer(serializers.ModelSerializer):
         slug_field="username", queryset=User.objects.all()
     )
 
+    post = serializers.SlugRelatedField(
+        slug_field="food_list", queryset=Post.objects.all()
+    )
+
     #foodList = serializers.SlugRelatedField(
         #slug_field="food_list", queryset=Post.objects.all()
     #)
@@ -74,6 +78,6 @@ class ReservationSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "receiver",
-            "post"
+            "post",
             #"foodList"
         ]

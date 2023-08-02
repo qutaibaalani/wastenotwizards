@@ -7,7 +7,8 @@ import { PostListComponent } from '../post-list/post-list.component'; // Adjust 
 
 export interface Post {
   id: number;
-  foodlist: string
+  foodlist: string;
+  post: any;
 }
 
 export interface Address {
@@ -106,8 +107,7 @@ export class MapBoxComponent implements OnInit {
 
   private fetchAndDisplayReservedPosts(): void {
     let token = this.getTokenFromLocalStorage()
-    let url = 'https://waste-not-wizards.onrender.com/api/reservations/receiver/' + this.thisUserid + '/'
-    console.log(url)     
+    let url = 'https://waste-not-wizards.onrender.com/api/reservations/receiver/' + this.thisUserid + '/'   
 
     this.http.get<any>(url, {
       headers: {
