@@ -14,6 +14,9 @@ export class ProviderPostComponent implements OnInit {
   displayedColumns: string[] = ['food_list', 'reservation_status', 'isClosed'];
   dataSource: MatTableDataSource<any>;
 
+  // Init this property to false to hide the form at page load
+  showPostForm = false;
+
   constructor(private fb: FormBuilder, private providerService: ProviderService) {}
 
   ngOnInit(): void {
@@ -25,6 +28,11 @@ export class ProviderPostComponent implements OnInit {
     });
 
     this.getPastPosts();
+  }
+
+  // nd method to toggle the form
+  togglePostForm(): void {
+    this.showPostForm = !this.showPostForm;
   }
 
   getPastPosts(): void {
@@ -56,3 +64,4 @@ export class ProviderPostComponent implements OnInit {
     }
   }
 }
+

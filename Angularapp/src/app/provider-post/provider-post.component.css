@@ -1,92 +1,48 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    width: 100%;
-    padding: 20px;
-  }
-  
-  .logo-container {
+    padding: 2em;
+}
+
+.mat-card {
+    margin-bottom: 2em;
+}
+
+.mat-elevation-z8 {
+    padding: 2em;
+}
+
+.logo-container {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .logo {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .form-container {
+    margin-bottom: 1em;
+}
+
+.logo {
+    height: 5em;
+    width: 5em;
+}
+
+.full-width-input {
     width: 100%;
-    max-width: 800px;
-    margin: auto;
-  }
-  
-  .full-width-input {
+    margin-bottom: 1em;
+}
+
+.submit-button {
     width: 100%;
-  }
-  
-  .submit-button {
-    width: 100%;
-    margin-top: 20px;
-  }
-  
-  .mat-elevation-z8 {
-    box-shadow: none;
-  }
-  
-  /* table */
-  .mat-table {
-    width: 90%;
-    margin-top: 20px;
-  }
-  
-  .status-closed {
+}
+
+.status-closed {
     color: red;
-    font-weight: bold;
-  }
-  
-  .status-pending {
+}
+
+.status-pending {
     color: orange;
-    font-weight: bold;
-  }
-  
-  .closed-status-icon {
+}
+
+.closed-status-icon {
     color: red;
-    font-size: 24px;
-    vertical-align: middle;
-  }
-  
-  .post-container {
-    width: 90%;
-    margin-top: 20px;
-    padding: 20px;
-    border: 3px solid rgb(103, 58, 183);
-    box-shadow: 5px 10px #888888;
-    border-radius: 15px;
-  }
-  
-  .post-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .post-details {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-  }
-  
-  .post-icon {
-    margin-right: 10px;
-  }
-  
-  .post-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-  }
-  
+}
+
