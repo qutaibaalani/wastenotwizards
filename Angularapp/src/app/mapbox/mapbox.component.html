@@ -2,6 +2,7 @@
 <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.40.1/mapbox-gl.js"></script>
 
 <div id="map"></div>
+
 <div id="reserved"></div>
 <div #targetDivRef></div>
 <div *ngIf="reservedPosts.length > 0">
@@ -10,10 +11,11 @@
     <li *ngFor="let rpost of reservedPosts">
       <strong (click)="moveMap($event, rpost)">{{ rpost.post }}</strong>
       <!-- Display other post details as needed -->
+
     </li>
   </ul>
 </div>
-<div *ngIf="reservedPosts.length === 0">
+<div *ngIf="reservedPosts.length === 0" class="post-container">
   <strong>No reserved posts.</strong>
 </div>
 
