@@ -9,6 +9,7 @@
         <strong id="{{rpost.id}}" (click)="moveMap($event, rpost)">{{ rpost.foodlist }}</strong>
         <p>{{ rpost.address }}</p>
         <button (click)="unreserve($event, rpost.id, rpost)">Unreserve Food</button>
+
         <!-- Display other post details as needed -->
       </li>
     </ul>
