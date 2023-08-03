@@ -157,10 +157,12 @@ export class MapBoxComponent implements OnInit {
         var long = pin_arr.long;
         var lat = pin_arr.lat;
         let id = '' + pin_arr.id;
-        let pin = new mapboxgl.Marker().setLngLat([long, lat]).addTo(this.map);
+        let pin = new mapboxgl.Marker({color:'green'}).setLngLat([long, lat]).addTo(this.map);
         let doc = document.getElementById(id);
-        pin.getElement().addEventListener('click', () => {
+        pin.getElement().addEventListener('hover', () => {
           doc.classList.add('red');
+        })
+        pin.getElement().addEventListener('click', () => {
           doc.scrollIntoView({ behavior: 'smooth' });
         });
       });
@@ -176,7 +178,7 @@ export class MapBoxComponent implements OnInit {
     let url = 'https://waste-not-wizards.onrender.com/api/posts/' + id + '/';
     let currentDateTime = this.datepipe.transform(new Date(), 'MM/dd/yyyy h:mm:ss');
     let data = { "reservation_status": "Reserved", "reserved_by": this.thisUser };
-    let postdata = { "receiver": this.thisUser, "post": id, 'lat': post.latitude, 'long': post.longitude, "foodlist": post.foodlist };
+    let postdata = { "receiver": this.thisUser, "post": id, 'lat': post.latitude, 'long': post.longitude, "foodlist": post.foodlist, "address": post.address };
     let posturl = 'https://waste-not-wizards.onrender.com/api/reservations/receiver/' + this.thisUserid + '/';
     this.http.patch(url, data, {
       headers: {
@@ -207,5 +209,44 @@ export class MapBoxComponent implements OnInit {
           console.log(postdata)
         }
       );
+    }
+  
+    public unreserve(event, id, post){
+    let token = this.getTokenFromLocalStorage();
+    let url = 'https://waste-not-wizards.onrender.com/api/posts/' + id + '/';
+    let currentDateTime = this.datepipe.transform(new Date(), 'MM/dd/yyyy h:mm:ss');
+    let data = { "reservation_status": "Open", "reserved_by": null };
+    let postdata = { "receiver": this.thisUser, "post": id, 'lat': post.latitude, 'long': post.longitude, "foodlist": post.foodlist };
+    let posturl = 'https://waste-not-wizards.onrender.com/api/reservations/receiver/' + this.thisUserid + '/';
+
+      this.http.patch(url, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${token}`
+        }
+      }).subscribe(
+        res => {
+          console.log("working delete patch!!!!");
+        },
+        error => {
+          console.log("OOOHHH NOOO delete patch");
+        }
+      );
+
+      this.http.delete(posturl, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${token}`
+        }
+      }).subscribe(
+          res => {
+            console.log("Working delete");
+            console.log(postdata)
+          },
+          error => {
+            console.log("OOOHHH NOOO delete");
+            console.log(postdata)
+          }
+        );
     }
   }
