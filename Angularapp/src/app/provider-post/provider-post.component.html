@@ -32,7 +32,6 @@
         </form>
     </mat-card>
 
-   
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="food_list">
             <th mat-header-cell *matHeaderCellDef> Food List </th>
@@ -58,7 +57,7 @@
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef> Delete </th>
             <td mat-cell *matCellDef="let post">
-                <button mat-mini-fab color="warn" (click)="deletePost(post.id)">
+                <button mat-mini-fab class="delete-button" (click)="deletePost(post.id)">
                     <mat-icon aria-hidden="false" aria-label="Delete Icon">delete</mat-icon>
                 </button>
             </td>

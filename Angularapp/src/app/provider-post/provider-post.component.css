@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: center;
     padding: 2em;
+    height: auto; /* adjust height to auto for proper scroll */
+    overflow-y: auto; /* Allows vertical scrolling */
 }
 
 .mat-card {
@@ -17,7 +19,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1em;
+    margin-bottom: 2em; /* Increase margin */
 }
 
 .logo {
@@ -52,4 +54,43 @@
 
 .status-reserved {
     color: yellow;
+}
+
+.delete-button {
+    background-color: plum; 
+}
+
+
+td, th {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+@media only screen and (max-width: 390px) {
+    .container {
+        padding: 1em;
+    }
+
+    .logo {
+        height: 3em;
+        width: 3em;
+    }
+
+    .mat-card {
+        margin-bottom: 1em;
+    }
+
+    .mat-elevation-z8 {
+        padding: 1em;
+    }
+
+    .logo-container {
+        margin-bottom: 1em;
+    }
+    
+
+    td, th {
+        font-size: 16px;
+    }
 }
