@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth.service'; 
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Angularapp';
+  
+  loading = false; // Init loading false
+
+  constructor(private authService: AuthService) { } 
+
+  onLogout() {
+    this.loading = true;
+    this.authService.onLogout().subscribe(
+      () => {
+        this.loading = false; 
+      },
+      (error) => {
+        console.log('Error!', error);
+        this.loading = false; 
+      }
+    ); 
+  }
 }
