@@ -128,6 +128,7 @@ class Reservation(models.Model):
     lat = models.CharField(max_length=30,blank=True, null=True)
     long = models.CharField(max_length=30,blank=True, null=True)
     foodlist = models.TextField(blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return str(self.receiver)

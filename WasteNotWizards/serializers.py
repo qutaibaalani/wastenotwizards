@@ -78,4 +78,5 @@ class ReservationSerializer(serializers.ModelSerializer):
             "long",
             "post",
             "foodlist",
+            "address"
         ]
