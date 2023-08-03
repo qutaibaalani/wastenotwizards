@@ -8,11 +8,7 @@
       <li *ngFor="let rpost of reservedPosts">
         <strong id="{{rpost.id}}" (click)="moveMap($event, rpost)">{{ rpost.foodlist }}</strong>
         <p>{{ rpost.address }}</p>
-<<<<<<< Updated upstream
-        <button (click)="unreserve($event, rpost.id, rpost)">Unreseve Food</button>
-=======
         <button (click)="unreserve($event, rpost.id, rpost)">Unreserve Food</button>
->>>>>>> Stashed changes
         <!-- Display other post details as needed -->
       </li>
     </ul>
@@ -27,13 +23,8 @@
     <h2>Closest Food to You</h2>
     <ul>
       <li *ngFor="let post of closestPosts">
-<<<<<<< Updated upstream
-        <strong id="{{post.id}}" class="food-name" [appTooltip]="post.foodlist">{{ post.foodlist }}</strong>
-        <p>{{post.addresss}}</p>
-=======
         <strong (click)="moveMap($event, post)" id="{{post.id}}" class="food-name" [appTooltip]="post.foodlist">{{ post.foodlist }}</strong>
         <p>{{post.address}}</p>
->>>>>>> Stashed changes
         <div class="button-group">
           <button (click)="reserve($event, post.id, post)">Reserve Now!</button>
         </div>
