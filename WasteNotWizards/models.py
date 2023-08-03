@@ -125,8 +125,9 @@ class Post(models.Model):
 class Reservation(models.Model):
     receiver = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    lat = models.CharField(blank=True, null=True)
-    long = models.CharField(blank=True, null=True)
+    lat = models.CharField(max_length=30,blank=True, null=True)
+    long = models.CharField(max_length=30,blank=True, null=True)
+    foodlist = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return str(self.receiver)
