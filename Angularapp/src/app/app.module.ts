@@ -30,6 +30,7 @@ import { PostListComponent } from './post-list/post-list.component';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AuthService } from './auth.service';
+import { TooltipDirective } from './tooltip.directive';
 
 const routes: Routes = [
   { path: 'recipient-registration', component: RecipientRegistrationComponent },
@@ -55,6 +56,7 @@ const routes: Routes = [
     ReservationComponent,
     PostListComponent,
     SplashScreenComponent,
+    TooltipDirective,
   ],
   imports: [
     BrowserModule,

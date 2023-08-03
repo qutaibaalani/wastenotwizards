@@ -245,3 +245,42 @@ try a login form with floating labels
 //   } else {console.log("user_coordinates")}
 //   }
 // }
+
+
+
+
+
+
+
+<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.40.1/mapbox-gl.css" rel="stylesheet"/>
+<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.40.1/mapbox-gl.js"></script>
+
+<div id="map"></div>
+
+<div *ngIf="reservedPosts.length > 0" class="post-container">
+  <h2>Your Reserved Posts</h2>
+  <ul>
+    <li *ngFor="let rpost of reservedPosts">
+      <strong>{{ rpost.post }}</strong>
+      <p>{{ rpost.id }}</p>
+     
+    </li>
+  </ul>
+</div>
+<div *ngIf="reservedPosts.length === 0" class="post-container">
+  <strong>No reserved posts.</strong>
+</div>
+
+<div *ngIf="closestPosts.length > 0" class="post-container">
+  <h2>Closest Posts to You</h2>
+  <ul>
+    <li *ngFor="let post of closestPosts" class="post-item">
+      <div class="food-name">{{ post.foodlist }}</div>
+      <button class="reserve-button" (click)="reserve($event, post.id)">Reserve Now!</button>
+      
+    </li>
+  </ul>
+</div>
+<div *ngIf="closestPosts.length === 0" class="post-container">
+  <p>No posts found nearby.</p>
+</div>
