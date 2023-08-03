@@ -7,7 +7,6 @@
     <ul>
       <li *ngFor="let rpost of reservedPosts">
         <strong id="{{rpost.id}}" (click)="moveMap($event, rpost)">{{ rpost.foodlist }}</strong>
-        <p>{{ rpost.address }}</p>
         <button (click)="unreserve($event, rpost.id, rpost)">Unreseve Food</button>
         <!-- Display other post details as needed -->
       </li>
@@ -24,7 +23,6 @@
     <ul>
       <li *ngFor="let post of closestPosts">
         <strong id="{{post.id}}" class="food-name" [appTooltip]="post.foodlist">{{ post.foodlist }}</strong>
-        <p>{{post.addresss}}</p>
         <div class="button-group">
           <button (click)="moveMap($event, post)">Show On Map</button>
           <button (click)="reserve($event, post.id, post)">Reserve Now!</button>
