@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
         .subscribe({
           next: (response: any) => {
             console.log('Success!', response);
-            alert('Welcome, ' + loginData.username + '!');
 
             localStorage.setItem('username', loginData.username);
             localStorage.setItem('auth_token', response.auth_token);
