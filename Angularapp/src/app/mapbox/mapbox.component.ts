@@ -154,8 +154,8 @@ export class MapBoxComponent implements OnInit {
 
     if (reserved_coordinates) {
       reserved_coordinates.forEach((pin_arr) => {
-        var long = pin_arr.longitude;
-        var lat = pin_arr.latitude;
+        var long = pin_arr.long;
+        var lat = pin_arr.lat;
         let id = '' + pin_arr.id;
         let pin = new mapboxgl.Marker().setLngLat([long, lat]).addTo(this.map);
         let doc = document.getElementById(id);
