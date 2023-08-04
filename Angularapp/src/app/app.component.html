@@ -1,17 +1,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <mat-toolbar color="primary" fxLayoutAlign="space-between center">
-    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon style="font-size: 36px; line-height: 36px;">apps</mat-icon>
+    </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item routerLink="/recipient-registration">Recipient Registration</button>
       <button mat-menu-item routerLink="/provider-registration">Provider Registration</button>
-      <button mat-menu-item routerLink="/map">Map</button>
       <button mat-menu-item routerLink="/login">Login</button>
-      <button mat-menu-item routerLink="/provider-post">Provider Post</button>
-      <button mat-menu-item routerLink="/reservation">Reservation</button>
     </mat-menu>
     <span class="logologo"><img src="assets/img/newmainlogo.png"></span>
-    <button mat-button routerLink="/logout">Logout</button>
-  </mat-toolbar>
-  <splash-screen></splash-screen>
-  <router-outlet></router-outlet>
+    <button mat-button (click)="onLogout()">Logout</button>
+</mat-toolbar>
+<splash-screen></splash-screen>
+<router-outlet></router-outlet>
   
+<div class="spinner-container" *ngIf="loading">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
