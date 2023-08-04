@@ -24,7 +24,7 @@
     <h2>Closest Food to You</h2>
     <ul>
       <li *ngFor="let post of closestPosts">
-        <strong (click)="moveMap($event, post)" id="{{post.id}}" class="food-name" [appTooltip]="post.foodlist">{{ post.foodlist }}</strong>
+        <strong (click)="moveMap($event, post)" id="{{post.id}}" class="food-name" [appTooltip]="post.address">{{ post.foodlist }}</strong>
         <p>{{post.address}}</p>
         <div class="button-group">
           <button (click)="reserve($event, post.id, post)">Reserve Now!</button>

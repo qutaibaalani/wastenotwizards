@@ -46,6 +46,8 @@ def get_nearby_coordinates(request):
         'user_lat': user_latitude,
         'latitude': coord.latitude,
         'longitude': coord.longitude,
+        'address': coord.address,
+        'posted_by': coord.posted_by_user
     } for coord in nearby_coordinates]
 
     return JsonResponse(data, safe=False)
