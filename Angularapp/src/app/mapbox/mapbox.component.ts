@@ -104,6 +104,7 @@ export class MapBoxComponent implements OnInit {
     ).subscribe(
       (data) => {
         this.closestPosts = data.slice(0, 10);
+        console.log(this.closestPosts)
       },
       (error) => {
         console.error('Error fetching closest posts:', error);
@@ -160,8 +161,8 @@ export class MapBoxComponent implements OnInit {
 
     if (reserved_coordinates) {
       reserved_coordinates.forEach((pin_arr) => {
-        var long = pin_arr.long;
-        var lat = pin_arr.lat;
+        var long = parseFloat(pin_arr.long);
+        var lat = parseFloat(pin_arr.lat);
         let id = '' + pin_arr.id;
         let pin = new mapboxgl.Marker({color:'green'}).setLngLat([long, lat]).addTo(this.map);
         let doc = document.getElementById(id);
@@ -179,7 +180,17 @@ export class MapBoxComponent implements OnInit {
   }
 
   public moveMap(event, post) {
-    this.map.setCenter([post.longitude, post.latitude]);
+    let long = 0
+    let lat = 0
+    if (post.long){
+      long = parseFloat(post.long)
+      lat = parseFloat(post.lat)}
+      else {
+        long = parseFloat(post.longitude)
+        lat = parseFloat(post.latitude)
+      }
+    console.log(long, lat)
+    this.map.setCenter([long, lat]);
   }
 
   public reserve(event, id, post) {
