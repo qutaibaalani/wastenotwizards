@@ -85,6 +85,7 @@ def get_nearby_coordinates(request):
         'foodlist': coord.food_list,
         'latitude': coord.latitude,
         'longitude': coord.longitude,
+        'address': coord.address,
     } for coord in nearby_coordinates]
 
     return JsonResponse(data, safe=False)
