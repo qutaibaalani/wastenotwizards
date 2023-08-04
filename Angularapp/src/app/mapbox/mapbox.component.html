@@ -1,33 +1,39 @@
-<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.40.1/mapbox-gl.css" rel="stylesheet"/>
-<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.40.1/mapbox-gl.js"></script>
-
 <div id="map"></div>
 
+<div id="reserved"></div>
 <div *ngIf="reservedPosts.length > 0">
-  <h2>Your Reserved Posts</h2>
-  <ul>
-    <li *ngFor="let rpost of reservedPosts">
-      <strong>{{ rpost.post }}</strong>
-      <p>{{ rpost.id }}</p>
-      <!-- Display other post details as needed -->
-    </li>
-  </ul>
-</div>
-<div *ngIf="reservedPosts.length === 0">
-  <strong>No reserved posts.</strong>
-</div>
-
-<div *ngIf="closestPosts.length > 0">
-    <h2>Closest Posts to You</h2>
+  <div class="reserved-posts-box">
+    <h2>Your Reserved Food</h2>
     <ul>
-      <li *ngFor="let post of closestPosts">
-        <strong>{{ post.foodlist }}</strong>
-        <p>{{ post.id }}</p>
-        <button (click)="reserve($event, post.id)">Reserve Now!</button>
+      <li *ngFor="let rpost of reservedPosts">
+        <strong id="{{rpost.id}}" (click)="moveMap($event, rpost)">{{ rpost.foodlist }}</strong>
+        <p>{{ rpost.address }}</p>
+        <button (click)="unreserve($event, rpost.id, rpost)">Unreserve Food</button>
+
         <!-- Display other post details as needed -->
       </li>
     </ul>
   </div>
-  <div *ngIf="closestPosts.length === 0">
-    <p>No posts found nearby.</p>
+</div>
+<div *ngIf="reservedPosts.length === 0" class="post-container">
+  <strong>No reserved food.</strong>
+</div>
+
+<div *ngIf="closestPosts.length > 0">
+  <div class="closest-posts-box">
+    <h2>Closest Food to You</h2>
+    <ul>
+      <li *ngFor="let post of closestPosts">
+        <strong (click)="moveMap($event, post)" id="{{post.id}}" class="food-name" [appTooltip]="post.address">{{ post.foodlist }}</strong>
+        <p>{{post.address}}</p>
+        <div class="button-group">
+          <button (click)="reserve($event, post.id, post)">Reserve Now!</button>
+        </div>
+        <!-- Display other post details as needed -->
+      </li>
+    </ul>
   </div>
+</div>
+<div *ngIf="closestPosts.length === 0">
+  <p>No food found nearby.</p>
+</div>
